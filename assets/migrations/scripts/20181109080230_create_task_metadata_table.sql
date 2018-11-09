@@ -21,7 +21,6 @@ CREATE TABLE core.task_metadata
 (
     id bigserial NOT NULL,
     task_id bigint REFERENCES core.task(id),
-    document_id character varying UNIQUE NOT NULL,
     identifier varchar UNIQUE,
     campaign_identifier varchar,
     group_identifier varchar,
@@ -37,4 +36,4 @@ WITH (
 -- //@UNDO
 -- SQL to undo the change goes here.
 
-DROP TABLE task_metadata;
+DROP TABLE core.task_metadata;

@@ -21,7 +21,6 @@ CREATE TABLE core.campaign_metadata
 (
     id bigserial NOT NULL,
     campaign_id bigint REFERENCES core.campaign(id),
-    document_id character varying UNIQUE NOT NULL,
     identifier varchar UNIQUE,
     server_version bigint,
     PRIMARY KEY (id)
@@ -32,5 +31,5 @@ WITH (
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-DROP TABLE campaign_metadata;
+DROP TABLE core.campaign_metadata;
 
