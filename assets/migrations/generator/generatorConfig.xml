@@ -8,11 +8,11 @@
 		<jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/opensrp"
 			driverClass="org.postgresql.Driver" password="admin" userId="opensrp_admin" />
 		<javaModelGenerator targetPackage="org.opensrp.domain.postgres"
-			targetProject="opensrp-core" />
+			targetProject="opensrp-server-core" />
 		<sqlMapGenerator targetPackage="org.opensrp.repository.postgres.mapper.xml"
-			targetProject="opensrp-core" />
+			targetProject="opensrp-server-core" />
 		<javaClientGenerator targetPackage="org.opensrp.repository.postgres.mapper"
-			targetProject="opensrp-core" type="XMLMAPPER" />
+			targetProject="opensrp-server-core" type="XMLMAPPER" />
 
 		<!-- <table schema="core" tableName="client">
 
@@ -63,6 +63,20 @@
 				typeHandler="org.opensrp.repository.postgres.handler.ViewConfigurationTypeHandler" />		
 		</table>
 		<table schema="core" tableName="view_configuration_metadata" /> -->
+		
+		
+		<table schema="core" tableName="campaign">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.CampaignTypeHandler" />		
+		</table>
+		<table schema="core" tableName="campaign_metadata" />
+		
+		<table schema="core" tableName="task">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.TaskTypeHandler" />		
+		</table>
+		<table schema="core" tableName="task_metadata" />
+		
 
 	</context>
 </generatorConfiguration>
