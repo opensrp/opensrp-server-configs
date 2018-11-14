@@ -32,6 +32,7 @@ WITH (
     OIDS = FALSE
 ); 
 
+CREATE INDEX task_metadata_sync_index ON core.task_metadata (campaign_identifier,group_identifier,server_version);
 
 -- //@UNDO
 -- SQL to undo the change goes here.
