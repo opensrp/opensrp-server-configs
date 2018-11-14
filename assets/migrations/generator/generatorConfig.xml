@@ -2,17 +2,17 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 	<classPathEntry
-		location="/Users/coder/Projects/opensrp-server/assets/migrations/drivers/postgresql-42.2.1.jar" />
+		location="/home/samuel/Projects/opensrp_server/opensrp-server-configs/assets/migrations/drivers/postgresql-42.2.1.jar" />
 	<context id="core">
 		<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
 		<jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/opensrp"
 			driverClass="org.postgresql.Driver" password="admin" userId="opensrp_admin" />
 		<javaModelGenerator targetPackage="org.opensrp.domain.postgres"
-			targetProject="opensrp-core" />
+			targetProject="opensrp-server-core" />
 		<sqlMapGenerator targetPackage="org.opensrp.repository.postgres.mapper.xml"
-			targetProject="opensrp-core" />
+			targetProject="opensrp-server-core" />
 		<javaClientGenerator targetPackage="org.opensrp.repository.postgres.mapper"
-			targetProject="opensrp-core" type="XMLMAPPER" />
+			targetProject="opensrp-server-core" type="XMLMAPPER" />
 
 		<!-- <table schema="core" tableName="client">
 
@@ -63,6 +63,20 @@
 				typeHandler="org.opensrp.repository.postgres.handler.ViewConfigurationTypeHandler" />		
 		</table>
 		<table schema="core" tableName="view_configuration_metadata" /> -->
+		
+		
+		<table schema="core" tableName="campaign">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.CampaignTypeHandler" />		
+		</table>
+		<table schema="core" tableName="campaign_metadata" />
+		
+		<table schema="core" tableName="task">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.TaskTypeHandler" />		
+		</table>
+		<table schema="core" tableName="task_metadata" />
+		
 
 	</context>
 </generatorConfiguration>
