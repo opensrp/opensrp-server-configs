@@ -64,7 +64,7 @@
 		</table>
 		<table schema="core" tableName="view_configuration_metadata" /> -->
 		
-		
+	<!-- 	
 		<table schema="core" tableName="campaign">
 			<columnOverride column="json"
 				typeHandler="org.opensrp.repository.postgres.handler.CampaignTypeHandler" />		
@@ -76,6 +76,19 @@
 				typeHandler="org.opensrp.repository.postgres.handler.TaskTypeHandler" />		
 		</table>
 		<table schema="core" tableName="task_metadata" />
+		 -->
+		 
+		<table schema="core" tableName="location">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.LocationTypeHandler" />		
+		</table> 
+		<table schema="core" tableName="location_metadata" />
+		
+		<table schema="core" tableName="structure">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.LocationTypeHandler" />		
+		</table>
+		<table schema="core" tableName="structure_metadata" />
 		
 
 	</context>

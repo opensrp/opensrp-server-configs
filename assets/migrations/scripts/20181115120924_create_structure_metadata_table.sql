@@ -20,12 +20,13 @@
 CREATE TABLE core.structure_metadata
 (
     id bigserial NOT NULL,
-    location_id bigint REFERENCES core.location(id),
+    structure_id bigint REFERENCES core.structure(id),
+    geojson_id varchar UNIQUE,
     type varchar,
     parent_id varchar ,
-    geo_id bigint,
     uuid varchar,
     status varchar,
+    server_version bigint,
     PRIMARY KEY (id)
 )
 WITH (

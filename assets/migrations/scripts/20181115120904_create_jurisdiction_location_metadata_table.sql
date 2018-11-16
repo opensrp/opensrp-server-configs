@@ -21,11 +21,12 @@ CREATE TABLE core.location_metadata
 (
     id bigserial NOT NULL,
     location_id bigint REFERENCES core.location(id),
+    geojson_id varchar UNIQUE,
     type varchar,
     parent_id varchar ,
-    geo_id bigint,
     uuid varchar,
     status varchar,
+    server_version bigint,
     PRIMARY KEY (id)
 )
 WITH (
