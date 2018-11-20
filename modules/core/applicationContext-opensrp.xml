@@ -47,6 +47,9 @@
 						fixed-delay="120000" />
 	    <task:scheduled ref="taskService"
 						method="addServerVersion" fixed-delay="120000" />
+						
+	    <task:scheduled ref="physicalLocationService"
+						method="addServerVersion" fixed-delay="120000" />
 	</task:scheduled-tasks>
 
 	<beans profile="postgres">
