@@ -78,16 +78,16 @@
 		<table schema="core" tableName="task_metadata" />
 		 -->
 		 
-		<table schema="core" tableName="location">
+		<!-- <table schema="core" tableName="location">
 			<columnOverride column="json"
 				typeHandler="org.opensrp.repository.postgres.handler.LocationTypeHandler" />		
-		</table> 
+		</table>	 -->
 		<table schema="core" tableName="location_metadata" />
 		
-		<table schema="core" tableName="structure">
+		<!-- <table schema="core" tableName="structure">
 			<columnOverride column="json"
 				typeHandler="org.opensrp.repository.postgres.handler.LocationTypeHandler" />		
-		</table>
+		</table> -->
 		<table schema="core" tableName="structure_metadata" />
 		
 
