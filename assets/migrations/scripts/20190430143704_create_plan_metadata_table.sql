@@ -21,6 +21,7 @@ CREATE TABLE core.plan_metadata
 (
     operation_area_id character varying NOT NULL,
     plan_id character varying NOT NULL,
+    date_deleted bigint,
     PRIMARY KEY (operation_area_id, plan_id)
 )
 WITH (
