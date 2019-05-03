@@ -21,7 +21,7 @@ CREATE TABLE core.plan
 (
     id character varying NOT NULL,
     json jsonb NOT NULL,
-    date_deleted bigint,
+    is_deleted boolean,
     server_version bigint,
     PRIMARY KEY (id)
 )
