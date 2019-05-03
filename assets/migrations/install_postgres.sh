@@ -6,6 +6,8 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-
 
 sudo apt-get -yq update
 
+sudo apt-get -yq install libjson0 libjson0-dev
+
 sudo apt-get -yq install postgresql-10
 
 sudo apt-get -yq  install postgresql-client-10 postgresql-10-postgis-2.4 postgresql-10-postgis-2.4-scripts
