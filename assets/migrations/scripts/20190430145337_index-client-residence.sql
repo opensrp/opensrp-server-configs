@@ -19,7 +19,7 @@
 
 ALTER TABLE core.client_metadata ADD residence character varying;
 CREATE INDEX client_metadata_residence_index ON core.client_metadata (residence);
-update core.client_metadata set residence= (select json->'attributes'->'residence' from core.client where client.id=client_metadata.client_id);
+update core.client_metadata set residence= (select json->'attributes'->>'residence' from core.client where client.id=client_metadata.client_id);
 
 
 -- //@UNDO
