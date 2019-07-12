@@ -24,7 +24,7 @@ CREATE TABLE core.settings
 )
 WITH (
     OIDS = FALSE
-)
+) TABLESPACE ${core_tablespace};
 
 
 -- //@UNDO

@@ -27,7 +27,7 @@ CREATE TABLE core.plan
 )
 WITH (
     OIDS = FALSE
-) TABLESPACE core_space;
+) TABLESPACE ${core_tablespace};
 
 CREATE INDEX server_version_index ON core.plan (server_version);
 

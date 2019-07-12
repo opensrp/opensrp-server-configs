@@ -31,7 +31,7 @@ CREATE TABLE core.structure_metadata
 )
 WITH (
     OIDS = FALSE
-); 
+) TABLESPACE ${core_tablespace}; 
 
 
 -- //@UNDO

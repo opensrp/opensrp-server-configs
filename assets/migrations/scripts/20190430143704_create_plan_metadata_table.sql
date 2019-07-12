@@ -25,7 +25,7 @@ CREATE TABLE core.plan_metadata
 )
 WITH (
     OIDS = FALSE
-) TABLESPACE core_space;
+) TABLESPACE ${core_tablespace};
 
 CREATE INDEX plan_id_index ON core.plan_metadata (plan_id);
 

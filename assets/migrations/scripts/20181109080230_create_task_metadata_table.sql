@@ -30,7 +30,7 @@ CREATE TABLE core.task_metadata
 )
 WITH (
     OIDS = FALSE
-); 
+) TABLESPACE ${core_tablespace}; 
 
 CREATE INDEX task_metadata_sync_index ON core.task_metadata (campaign_identifier,group_identifier,server_version);
 

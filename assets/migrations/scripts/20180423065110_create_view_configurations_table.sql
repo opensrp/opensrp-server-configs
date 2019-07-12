@@ -24,7 +24,7 @@ CREATE TABLE core.view_configuration
 )
 WITH (
     OIDS = FALSE
-) 
+) TABLESPACE ${core_tablespace};
 
 
 -- //@UNDO

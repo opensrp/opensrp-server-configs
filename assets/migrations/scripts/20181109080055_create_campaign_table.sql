@@ -24,7 +24,7 @@ CREATE TABLE core.campaign
 )
 WITH (
     OIDS = FALSE
-); 
+) TABLESPACE ${core_tablespace};
 
 
 -- //@UNDO
