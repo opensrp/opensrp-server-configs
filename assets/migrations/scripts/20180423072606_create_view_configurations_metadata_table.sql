@@ -28,7 +28,7 @@ CREATE TABLE core.view_configuration_metadata
 )
 WITH (
     OIDS = FALSE
-); 
+) TABLESPACE ${core_tablespace};; 
 
 -- //@UNDO
 -- SQL to undo the change goes here.

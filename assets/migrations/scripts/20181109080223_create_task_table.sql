@@ -25,7 +25,7 @@ CREATE TABLE core.task
 )
 WITH (
     OIDS = FALSE
-); 
+) TABLESPACE ${core_tablespace}; 
 
 
 -- //@UNDO
