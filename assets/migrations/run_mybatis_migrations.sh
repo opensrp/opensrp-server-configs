@@ -6,3 +6,5 @@ export MIGRATIONS_HOME=/opt/mybatis/mybatis-migrations-3.3.1
 MIGRATIONS=$MIGRATIONS_HOME/bin
 export PATH=$MIGRATIONS:$PATH
 migrate  up --path=configs/assets/migrations  --env=test
+#Run migrations again Test that migrations are idempotent
+migrate  up --path=configs/assets/migrations  --env=test
