@@ -23,7 +23,7 @@ CREATE TABLE team.organization
     identifier character varying NOT NULL,
     active boolean default false,
     name character varying NOT NULL,
-    type jsonb ,
+    type jsonb,
     date_deleted timestamp,
     parent_id bigint REFERENCES team.organization(id),
     PRIMARY KEY (id)
