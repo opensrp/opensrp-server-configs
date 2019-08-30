@@ -20,6 +20,7 @@
 ALTER TABLE core.plan DROP CONSTRAINT IF EXISTS plan_pkey;
 ALTER TABLE core.plan RENAME COLUMN id TO identifier;
 ALTER TABLE core.plan ADD COLUMN  id bigserial PRIMARY KEY ;
+CREATE INDEX plan_identifier_index ON core.plan (identifier);
 
 DROP INDEX IF EXISTS core.plan_id_index;
 ALTER TABLE core.plan_metadata RENAME COLUMN plan_id TO identifier;
@@ -31,12 +32,13 @@ CREATE INDEX plan_id_index ON core.plan_metadata (plan_id);
 -- //@UNDO
 -- SQL to undo the change goes here.
 ALTER TABLE core.plan DROP CONSTRAINT IF EXISTS plan_pkey;
+DROP INDEX IF EXISTS  core.plan_identifier_index;
 ALTER TABLE core.plan DROP COLUMN  id;
 ALTER TABLE core.plan RENAME COLUMN identifier TO id;
 ALTER TABLE core.plan ADD PRIMARY KEY (id);
 
 
-DROP INDEX core.plan_id_index;
+DROP INDEX IF EXISTS core.plan_id_index;
 ALTER TABLE core.plan_metadata DROP COLUMN  plan_id;
 ALTER TABLE core.plan_metadata RENAME COLUMN identifier TO plan_id;
 CREATE INDEX plan_id_index ON core.plan_metadata (plan_id);
