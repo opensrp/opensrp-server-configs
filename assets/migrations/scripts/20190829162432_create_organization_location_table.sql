@@ -19,11 +19,13 @@
 
 CREATE TABLE team.organization_location
 (
+	id bigserial NOT NULL,	
     organization_id bigint REFERENCES team.organization(id),
     location_id bigint REFERENCES core.location(id),
     plan_id bigint REFERENCES core.plan(id),
     from_date timestamp,
     to_date timestamp,
+    PRIMARY KEY (id),
     UNIQUE(organization_id,location_id,plan_id)
 )
 WITH (
