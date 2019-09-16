@@ -18,11 +18,18 @@
 -- Migration SQL that makes the change goes here.
 
 
-DROP INDEX team.organization_location_organization_id_location_id_plan_id_key RESTRICT;
-CREATE UNIQUE INDEX organization_location_organization_id_location_id_plan_id_key ON team.organization_location (organization_id, location_id, plan_id, from_date);
+DROP INDEX IF EXISTS  organization_location_organization_id_location_id_plan_id_key CASCADE;
+CREATE UNIQUE INDEX ON team.organization_location (organization_id, location_id, plan_id, from_date);
+
+ALTER TABLE team.organization_location ALTER COLUMN from_date TYPE date USING from_date::date;
+ALTER TABLE team.organization_location ALTER COLUMN to_date TYPE date USING to_date::date;
+
 -- //@UNDO
 -- SQL to undo the change goes here.
-DROP INDEX team.organization_location_organization_id_location_id_plan_id_key RESTRICT;
-CREATE UNIQUE INDEX organization_location_organization_id_location_id_plan_id_key ON team.organization_location (organization_id, location_id, plan_id);
+DROP INDEX IF EXISTS organization_location_organization_id_location_id_plan_id_f_idx CASCADE ;
+CREATE UNIQUE INDEX  ON team.organization_location (organization_id, location_id, plan_id);
+ALTER TABLE team.organization_location ALTER COLUMN from_date TYPE timestamp USING from_date::timestamp;
+ALTER TABLE team.organization_location ALTER COLUMN to_date TYPE timestamp USING to_date::timestamp;
+
 
 
