@@ -4,17 +4,17 @@
 	<!-- Replace <project_root> here with the path to your project's root directory.
 	 This script should be run when inside the opensrp-server-core folder.
 	 And opensrp-server-configs should be added as a submodule in a folder called configs in the root of the opensrp-server-core folder -->
-	<classPathEntry location="<project_root>/opensrp-server-core/configs/assets/migrations/drivers/postgresql-42.2.1.jar" />
+	<classPathEntry location="/Users/paulinembabu/IdeaProjects/opensrp-server-core/configs/assets/migrations/drivers/postgresql-42.2.1.jar" />
 	<context id="core">
 		<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
 		<jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/opensrp"
 			driverClass="org.postgresql.Driver" password="admin" userId="opensrp_admin" />
 		<javaModelGenerator targetPackage="org.opensrp.domain.postgres"
-			targetProject="src/main/java" />
+			targetProject="/Users/paulinembabu/IdeaProjects/opensrp-server-core/src/main/java" />
 		<sqlMapGenerator targetPackage="org.opensrp.repository.postgres.mapper.xml"
-			targetProject="src/main/java" />
+			targetProject="/Users/paulinembabu/IdeaProjects/opensrp-server-core/src/main/java" />
 		<javaClientGenerator targetPackage="org.opensrp.repository.postgres.mapper"
-			targetProject="src/main/java" type="XMLMAPPER" />
+			targetProject="/Users/paulinembabu/IdeaProjects/opensrp-server-core/src/main/java" type="XMLMAPPER" />
 
 		<!-- <table schema="core" tableName="client">
 
@@ -92,9 +92,14 @@
 		</table>
 		<table schema="core" tableName="structure_metadata" /> -->
 
-		<table schema="core" tableName="plan" >
-			<columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.PlanTypeHandler"/>
-		</table>
-		<table schema="core" tableName="plan_metadata" domainObjectName="PlanMetadata"/>
-	</context>
+
+        <!-- <table schema="core" tableName="plan" >
+            <columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.PlanTypeHandler"/>
+        </table>
+        <table schema="core" tableName="plan_metadata" domainObjectName="PlanMetadata"/> -->
+
+        <table schema="core" tableName="manifest" >
+            <columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.ManifestTypeHandler"/>
+        </table>
+    </context>
 </generatorConfiguration>
