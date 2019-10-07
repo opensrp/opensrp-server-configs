@@ -21,6 +21,7 @@ CREATE TABLE core.manifest
     id bigserial NOT NULL,
     json jsonb NOT NULL,
     app_version varchar NOT NULL,
+    app_id varchar NOT NULL,
     created_at bigint,
     updated_at bigint,
     PRIMARY KEY (id)
@@ -30,6 +31,7 @@ WITH (
 ) TABLESPACE ${core_tablespace};
 
 CREATE INDEX manifest_app_version_index ON core.manifest (app_version);
+CREATE INDEX manifest_app_id_index ON core.manifest (app_id);
 
 -- //@UNDO
 -- SQL to undo the change goes here.
