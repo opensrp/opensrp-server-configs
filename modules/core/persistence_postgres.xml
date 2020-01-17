@@ -19,6 +19,8 @@
 			expression="org.opensrp.service.formSubmission.ziggy.*" />
 		<context:exclude-filter type="regex"
 			expression="org.opensrp.service.FormSubmissionDataMigrationService" />
+		<context:exclude-filter type="regex"
+			expression="org.opensrp.referrals.*" />
 	</context:component-scan>
 
 	<bean id="openSRPDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
