@@ -37,27 +37,32 @@
 			<!-- <task:scheduled ref="formSubmissionListener" method="parseForms" 
 				fixed-delay="180000" /> -->
 			<task:scheduled ref="eventsListener"
-				method="processEvent" fixed-delay="180000" />
+				method="processEvent"
+				fixed-delay="${schedule.event.add.serverVersion.interval}" />
 			<!--<task:scheduled ref="openmrsAtomfeedListener" method="syncAtomfeeds" -->
 			<!--fixed-delay="900000" /> -->
 			<task:scheduled ref="viewConfigurationService"
-				method="addServerVersion" fixed-delay="120000" />
+				method="addServerVersion"
+				fixed-delay="${schedule.view.add.serverVersion.interval}" />
 			<task:scheduled ref="taskService"
-				method="addServerVersion" fixed-delay="120000" />
+				method="addServerVersion"
+				fixed-delay="${schedule.task.add.serverVersion.interval}" />
 
 			<task:scheduled ref="physicalLocationService"
-				method="addServerVersion" fixed-delay="120000" />
+				method="addServerVersion"
+				fixed-delay="${schedule.location.add.serverVersion.interval}" />
 
 			<beans profile="openmrs-dhis2-sync">
 				<task:scheduled ref="openmrsSyncerListener"
-					method="pushToOpenMRS" fixed-delay="300000" />
+					method="pushToOpenMRS"
+					fixed-delay="${schedule.openmrs.sync.interval}" />
 				<task:scheduled ref="openmrsValidateDataSync"
-					method="syncToOpenMRS" fixed-delay="420000" />
+					method="syncToOpenMRS"
+					fixed-delay="${schedule.openmrs.validate.interval}" />
 				<task:scheduled ref="DHIS2DatasetPush"
-					method="pushToDHIS2" fixed-delay="600000" />
+					method="pushToDHIS2" fixed-delay="${schedule.dhis2.sync.interval}" />
 			</beans>
 		</task:scheduled-tasks>
-
 
 	</beans>
 
