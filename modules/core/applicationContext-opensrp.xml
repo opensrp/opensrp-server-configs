@@ -51,7 +51,7 @@
 
 	</task:scheduled-tasks>
 
-	<beans profile="openmrs-dhis2-sync">
+	<beans profile="openmrs-sync">
 		<task:scheduled-tasks
 			scheduler="applicationScheduler">
 			<task:scheduled ref="openmrsSyncerListener"
@@ -60,10 +60,16 @@
 			<task:scheduled ref="openmrsValidateDataSync"
 				method="syncToOpenMRS"
 				fixed-delay="${schedule.openmrs.validate.interval}" />
-			<task:scheduled ref="DHIS2DatasetPush"
-				method="pushToDHIS2" fixed-delay="${schedule.dhis2.sync.interval}" />
 		</task:scheduled-tasks>
 	</beans>
+	
+	<beans profile="dhis2-sync">
+		<task:scheduled-tasks
+			scheduler="applicationScheduler">
+			<task:scheduled ref="DHIS2DatasetPush"
+				method="pushToDHIS2" fixed-delay="${schedule.dhis2.sync.interval}" />
+			</task:scheduled-tasks>
+	</beans>	
 
 	<beans profile="postgres">
 		<import resource="persistence_postgres.xml" />
