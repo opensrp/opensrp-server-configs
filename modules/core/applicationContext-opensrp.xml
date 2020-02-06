@@ -28,10 +28,8 @@
 
 	<bean id="statsdAgent" class="org.motechproject.metrics.impl.LoggingAgentBackendImpl" />
 
+	<task:scheduler id="applicationScheduler" pool-size="10" />
 	<beans profile="schedules-enabled">
-		<task:scheduler id="applicationScheduler"
-			pool-size="10" />
-
 		<task:scheduled-tasks
 			scheduler="applicationScheduler">
 			<!-- <task:scheduled ref="formSubmissionListener" method="parseForms" 
@@ -52,7 +50,11 @@
 				method="addServerVersion"
 				fixed-delay="${schedule.location.add.serverVersion.interval}" />
 
-			<beans profile="openmrs-dhis2-sync">
+		</task:scheduled-tasks>
+
+		<beans profile="openmrs-dhis2-sync">
+			<task:scheduled-tasks
+				scheduler="applicationScheduler">
 				<task:scheduled ref="openmrsSyncerListener"
 					method="pushToOpenMRS"
 					fixed-delay="${schedule.openmrs.sync.interval}" />
@@ -61,8 +63,8 @@
 					fixed-delay="${schedule.openmrs.validate.interval}" />
 				<task:scheduled ref="DHIS2DatasetPush"
 					method="pushToDHIS2" fixed-delay="${schedule.dhis2.sync.interval}" />
-			</beans>
-		</task:scheduled-tasks>
+			</task:scheduled-tasks>
+		</beans>
 
 	</beans>
 
