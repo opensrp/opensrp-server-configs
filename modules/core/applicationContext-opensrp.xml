@@ -20,8 +20,6 @@
 
 	<context:annotation-config />
 
-	<bean id="statsdAgent" class="org.motechproject.metrics.impl.LoggingAgentBackendImpl" />
-
 	<task:scheduler id="applicationScheduler" pool-size="10" />
 	<task:scheduled-tasks
 		scheduler="applicationScheduler">
@@ -67,10 +65,6 @@
 
 	<beans profile="postgres">
 		<import resource="persistence_postgres.xml" />
-	</beans>
-
-	<beans profile="couchDb">
-		<import resource="persistence_couchdb.xml" />
 	</beans>
 
 	<beans profile="jedis">
