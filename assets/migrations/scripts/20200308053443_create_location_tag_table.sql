@@ -23,7 +23,7 @@ CREATE TABLE core.location_tag
     description varchar  NULL,
     active boolean default false,
     PRIMARY KEY (id),
-    UNIQUE(organization_id,location_id,plan_id)
+    UNIQUE(name)
 )
 WITH (
     OIDS = FALSE
