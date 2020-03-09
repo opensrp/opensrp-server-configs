@@ -20,13 +20,15 @@ CREATE TABLE core.location_tag
 (
     id bigint NOT NULL,
     name varchar NOT NULL,
-    description varchar  NULL,   
+    description varchar  NULL,
+    active boolean default false,
     PRIMARY KEY (id)
 )
 WITH (
     OIDS = FALSE
-) TABLESPACE ${core_tablespace};
-CREATE INDEX name_index ON core.location_tag (name);
+) 
+TABLESPACE ${core_tablespace};
+CREATE INDEX location_tag_name_index ON core.location_tag (name);
 
 
 -- //@UNDO
