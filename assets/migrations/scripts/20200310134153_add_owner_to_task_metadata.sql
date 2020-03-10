@@ -19,7 +19,7 @@
 ALTER TABLE core.task_metadata
     ADD COLUMN IF NOT EXISTS owner VARCHAR;
 
-CREATE INDEX IF NOT EXISTS owner_index
+CREATE INDEX IF NOT EXISTS task_metadata_owner_index
     ON core.task_metadata (owner);
 
 UPDATE core.task_metadata
@@ -27,7 +27,7 @@ SET owner = (select json ->> 'owner' from core.task where task.id = task_metadat
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-DROP INDEX IF EXISTS owner_index;
+DROP INDEX IF EXISTS core.task_metadata_owner_index;
 
 ALTER TABLE core.task_metadata
     DROP COLUMN IF EXISTS owner;
