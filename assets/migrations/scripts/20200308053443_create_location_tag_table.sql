@@ -18,11 +18,12 @@
 -- Migration SQL that makes the change goes here.
 CREATE TABLE core.location_tag
 (
-    id bigint NOT NULL,
+    id bigserial NOT NULL,
     name varchar NOT NULL,
     description varchar  NULL,
     active boolean default false,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE(name)
 )
 WITH (
     OIDS = FALSE
