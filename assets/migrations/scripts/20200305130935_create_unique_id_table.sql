@@ -30,7 +30,9 @@ CREATE TABLE core.unique_id
 )
 WITH (
     OIDS = FALSE
-)
+) TABLESPACE ${core_tablespace};
+
+CREATE INDEX unique_id_openmrs_id_index ON core.unique_id (openmrs_id);
 
 -- //@UNDO
 -- SQL to undo the change goes here.
