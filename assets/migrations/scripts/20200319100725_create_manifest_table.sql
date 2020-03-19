@@ -22,8 +22,8 @@ CREATE TABLE core.manifest
     json jsonb NOT NULL,
     app_version varchar NOT NULL,
     app_id varchar NOT NULL,
-    created_at bigint,
-    updated_at bigint,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP,
     PRIMARY KEY (id)
 )
 WITH (
