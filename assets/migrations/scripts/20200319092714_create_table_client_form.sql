@@ -25,11 +25,9 @@ CREATE TABLE core.client_form
 )
 WITH (
     OIDS = FALSE
-)
+);
 
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-DROP TABLE core.client_form
-
-
+DROP TABLE core.client_form;

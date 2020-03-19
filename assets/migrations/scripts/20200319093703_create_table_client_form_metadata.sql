@@ -29,7 +29,7 @@ CREATE TABLE core.client_form_metadata
 )
 WITH (
     OIDS = FALSE
-)
+) TABLESPACE ${core_tablespace};
 
 CREATE INDEX client_form_metadata_identifier ON core.client_form_metadata(identifier);
 CREATE INDEX client_form_metadata_version ON core.client_form_metadata(version);
@@ -37,6 +37,6 @@ CREATE INDEX client_form_metadata_version ON core.client_form_metadata(version);
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-DROP TABLE core.client_form_metadata
+DROP TABLE core.client_form_metadata;
 
 
