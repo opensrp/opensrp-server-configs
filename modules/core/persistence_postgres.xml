@@ -21,6 +21,8 @@
 			expression="org.opensrp.service.FormSubmissionDataMigrationService" />
 		<context:exclude-filter type="regex"
 			expression="org.opensrp.referrals.*" />
+		<context:exclude-filter type="regex"
+			expression="org.opensrp.connector..*" />
 	</context:component-scan>
 
 	<bean id="openSRPDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
