@@ -18,7 +18,7 @@
 -- Migration SQL that makes the change goes here.
 CREATE TABLE core.client_form
 (
-    id SERIAL,
+    id BIGSERIAL,
     json jsonb NOT NULL,
     created_at TIMESTAMP NOT NULL,
     PRIMARY KEY (id)

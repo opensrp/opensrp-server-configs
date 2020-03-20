@@ -18,7 +18,7 @@
 -- Migration SQL that makes the change goes here.
 CREATE TABLE core.client_form_metadata
 (
-    id INTEGER REFERENCES core.client_form(id),
+    id BIGINT REFERENCES core.client_form(id),
     identifier character varying NOT NULL,
     jurisdiction character varying,
     version character varying NOT NULL,
