@@ -3,12 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-               http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-               http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+               http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+               http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:activemq.properties"/>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
     </bean>
     
@@ -17,11 +16,37 @@
     <util:properties id="opensrp" location="classpath:/opensrp.properties"/>
 
     <context:annotation-config/>
-    <context:component-scan base-package="org.opensrp.connector"/>
+    <context:component-scan base-package="org.opensrp.connector">
+    	<context:exclude-filter type="regex"
+			expression="org.opensrp.connector.atomfeed..*" />
+		<context:exclude-filter type="regex"
+			expression="org.opensrp.connector.repository..*" />
+		<context:exclude-filter type="regex"
+			expression="org.opensrp.connector.dhis2..*" />
+		<context:exclude-filter type="regex"
+			expression="org.opensrp.connector.rapidpro..*" />
+    </context:component-scan>
     
-    <bean id="atomfeedDatabaseConnector" class="org.ektorp.impl.StdCouchDbConnector">
-        <constructor-arg value="${couchdb.db.atomfeed}"/>
-        <constructor-arg ref="couchDbInstance"/>
-    </bean>
+    <beans profile="atomfeed">
+    	<context:component-scan base-package="org.opensrp.connector.atomfeed"/>
+	    <bean id="atomfeedDatabaseConnector" class="org.ektorp.impl.StdCouchDbConnector">
+	        <constructor-arg value="${couchdb.db.atomfeed}"/>
+	        <constructor-arg ref="couchDbInstance"/>
+	    </bean>
+    </beans>
+    
+    <beans profile="dhis2-sync">
+    	<context:component-scan base-package="org.opensrp.connector.repository"/>
+    	<context:component-scan base-package="org.opensrp.connector.dhis2"/>
+    </beans>
+     
+     <beans profile="dhis2-sync">
+     	<context:component-scan base-package="org.opensrp.connector.repository"/>
+    	<context:component-scan base-package="org.opensrp.connector.dhis2"/>
+    </beans>
 
+	<beans profile="rapidpro">
+		<context:component-scan base-package="org.opensrp.connector.repository"/>
+		<context:component-scan base-package="org.opensrp.connector.rapidpro" />
+	</beans>
 </beans>
