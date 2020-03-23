@@ -105,9 +105,16 @@
 		
 		<table schema="team" tableName="practitioner" />
 		
-		<table schema="team" tableName="practitioner_role" />-->
+		<table schema="team" tableName="practitioner_role" />
 
 		<table schema="team" tableName="organization_location" />
 
+
+		<table schema="team" tableName="practitioner_role" />
+		
+		<table schema="team" tableName="organization_location" /> -->
+		
+		<table schema="core" tableName="location_tag" />
+		
 	</context>
 </generatorConfiguration>
