@@ -95,8 +95,9 @@
 		 <table schema="core" tableName="plan" >
 			<columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.PlanTypeHandler"/>
 		</table>
-		<table schema="core" tableName="plan_metadata" domainObjectName="PlanMetadata"/> 
-		
+		<table schema="core" tableName="plan_metadata" domainObjectName="PlanMetadata"/>
+
+		<table schema="core" tableName="unique_id" />
 		
 		<table schema="team" tableName="organization" >
 		<columnOverride column="type" typeHandler="org.opensrp.repository.postgres.handler.CodeSystemTypeHandler"/>
@@ -104,6 +105,11 @@
 		
 		<table schema="team" tableName="practitioner" />
 		
+		<table schema="team" tableName="practitioner_role" />
+
+		<table schema="team" tableName="organization_location" />
+
+
 		<table schema="team" tableName="practitioner_role" />
 		
 		<table schema="team" tableName="organization_location" /> -->
