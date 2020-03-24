@@ -20,7 +20,7 @@ CREATE TABLE core.client_form
 (
     id BIGSERIAL,
     json jsonb NOT NULL,
-    created_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )
 WITH (

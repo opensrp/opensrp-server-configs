@@ -24,7 +24,7 @@ CREATE TABLE core.client_form_metadata
     version character varying NOT NULL,
     label character varying(200) NOT NULL,
     module character varying(200),
-    created_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )
 WITH (
