@@ -25,7 +25,7 @@ CREATE TABLE core.client_form
 )
 WITH (
     OIDS = FALSE
-);
+) TABLESPACE ${core_tablespace};
 
 
 -- //@UNDO

@@ -112,9 +112,14 @@
 
 		<table schema="team" tableName="practitioner_role" />
 		
-		<table schema="team" tableName="organization_location" /> -->
+		<table schema="team" tableName="organization_location" />
 		
-		<table schema="core" tableName="location_tag" />
+		<table schema="core" tableName="location_tag" /> 
+
+		<table schema="core" tableName="client_form" />
+
+		<table schema="core" tableName="client_form_metadata" /> -->
+
 		
 	</context>
 </generatorConfiguration>
