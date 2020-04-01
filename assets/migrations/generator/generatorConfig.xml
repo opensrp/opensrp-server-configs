@@ -92,18 +92,12 @@
 		</table>
 		<table schema="core" tableName="structure_metadata" /> 
 
-
-        <!-- <table schema="core" tableName="plan" >
-            <columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.PlanTypeHandler"/>
-        </table>
-        <table schema="core" tableName="plan_metadata" domainObjectName="PlanMetadata"/> -->
-
-
-		<!-- <table schema="core" tableName="plan" >
+		<table schema="core" tableName="plan" >
 			<columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.PlanTypeHandler"/>
 		</table>
-		<table schema="core" tableName="plan_metadata" domainObjectName="PlanMetadata"/> 
-		
+		<table schema="core" tableName="plan_metadata" domainObjectName="PlanMetadata"/>
+
+		<table schema="core" tableName="unique_id" />
 		
 		<table schema="team" tableName="organization" >
 		<columnOverride column="type" typeHandler="org.opensrp.repository.postgres.handler.CodeSystemTypeHandler"/>
@@ -111,13 +105,22 @@
 		
 		<table schema="team" tableName="practitioner" />
 		
+
+		<table schema="team" tableName="organization_location" />
+
+
 		<table schema="team" tableName="practitioner_role" />
 		
-		<table schema="team" tableName="organization_location" />-->
+		<table schema="core" tableName="location_tag" /> 
+
+		<table schema="core" tableName="client_form" />
+
+		<table schema="core" tableName="client_form_metadata" />
 
 		<table schema="core" tableName="manifest" >
 			<columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.ManifestTypeHandler"/>
 		</table>
+		 -->
 	</context>
 		
 </generatorConfiguration>
