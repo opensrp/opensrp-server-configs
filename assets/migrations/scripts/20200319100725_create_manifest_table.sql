@@ -22,7 +22,7 @@ CREATE TABLE core.manifest
     json jsonb NOT NULL,
     app_version varchar NOT NULL,
     app_id varchar NOT NULL,
-    created_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP,
     PRIMARY KEY (id)
 )
