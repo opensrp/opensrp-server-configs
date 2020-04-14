@@ -16,8 +16,8 @@
 
 -- // add settings metadata columns uuid json setting type setting value setting key setting description inherited from
 -- Migration SQL that makes the change goes here.
-ALTER TABLE core.settings_metadata ADD COLUMN uuid VARCHAR NOT NULL;
-ALTER TABLE core.settings_metadata ADD COLUMN json jsonb NOT NULL;
+ALTER TABLE core.settings_metadata ADD COLUMN uuid VARCHAR;
+ALTER TABLE core.settings_metadata ADD COLUMN json jsonb;
 ALTER TABLE core.settings_metadata ADD COLUMN setting_type VARCHAR;
 ALTER TABLE core.settings_metadata ADD COLUMN setting_value VARCHAR;
 ALTER TABLE core.settings_metadata ADD COLUMN setting_key VARCHAR;
@@ -25,7 +25,7 @@ ALTER TABLE core.settings_metadata ADD COLUMN setting_description VARCHAR;
 ALTER TABLE core.settings_metadata ADD COLUMN inherited_from VARCHAR;
 
 -- Add search fields index
-ALTER TABLE core.settings_metadata ADD INDEX settings_search_fields_index (uuid, setting_type, setting_key);
+CREATE INDEX IF NOT EXISTS settings_search_fields_index ON core.settings_metadata (uuid, setting_type, setting_key);
 
 
 -- //@UNDO
