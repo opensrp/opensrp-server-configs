@@ -16,8 +16,11 @@
 
 -- // migrate_settings_data_into_settings_metadata_columns_uuid_json_setting_type_setting_value_setting_key_setting_description_inherited_from
 -- Migration SQL that makes the change goes here.
+
 SET search_path to core;
-ALTER TABLE settings_metadata DROP CONSTRAINT settings_metadata_document_id_key;
+
+-- remove document_id uniqueness constraint
+ALTER TABLE settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
 
 CREATE OR REPLACE FUNCTION parse_json ()
 RETURNS VOID
@@ -46,6 +49,13 @@ $$
 
 
   BEGIN
+    -- create backup tables
+    CREATE TABLE settings_backup as TABLE settings;
+    CREATE TABLE settings_metadata_backup as TABLE settings_metadata;
+
+    TRUNCATE TABLE settings_metadata;
+
+    -- migrate data
     FOR setting_id, setting_configurations IN (SELECT id, json from settings)
     LOOP
         FOR setting IN SELECT * FROM jsonb_array_elements((setting_configurations->>'settings')::jsonb)
@@ -57,7 +67,7 @@ $$
            team_id:= setting_configurations->>'teamId';
            server_version:= setting_configurations->>'serverVersion';
            provider_id:= setting_configurations->>'providerId';
-           location_id:= setting->>'locationId';
+           location_id:= setting_configurations->>'locationId';
            setting_key:= setting->>'key';
            setting_value:= setting->>'value';
            setting_description:= setting->>'description';
@@ -66,24 +76,9 @@ $$
            inherited_from:= setting->>'inherited_from';
            setting_json:= jsonb_pretty(setting);
 
-            IF uuid IS NULL THEN
+           IF uuid IS NULL THEN
                uuid:= uuid_generate_v4();
-            END IF;
---           RAISE NOTICE document_id;
---           RAISE NOTICE settings_fk;
---           RAISE NOTICE identifier;
---           RAISE NOTICE team;
---           RAISE NOTICE team_id;
---           RAISE NOTICE server_version;
---           RAISE NOTICE provider_id;
---           RAISE NOTICE location_id;
---           RAISE NOTICE setting_key;
---           RAISE NOTICE setting_value;
---           RAISE NOTICE setting_description;
---           RAISE NOTICE setting_type;
---           RAISE NOTICE uuid;
---           RAISE NOTICE inherited_from;
---           RAISE NOTICE setting_json;
+           END IF;
 
            INSERT INTO settings_metadata (document_id, settings_id, identifier, team, team_id, server_version, provider_id,
            location_id, setting_key, setting_value, setting_description, setting_type, uuid, inherited_from, json)
@@ -93,6 +88,11 @@ $$
 
         END LOOP;
     END LOOP;
+
+    -- drop backup tables and delete settings block since migration is complete
+    UPDATE settings SET json=json-'settings';
+    DROP TABLE settings_backup;
+    DROP TABLE settings_metadata_backup;
   END;
 
 $$ LANGUAGE 'plpgsql';
