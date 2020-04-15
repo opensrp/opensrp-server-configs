@@ -17,6 +17,7 @@
 -- // migrate_settings_data_into_settings_metadata_columns_uuid_json_setting_type_setting_value_setting_key_setting_description_inherited_from
 -- Migration SQL that makes the change goes here.
 SET search_path to core;
+ALTER TABLE settings_metadata DROP CONSTRAINT settings_metadata_document_id_key;
 
 CREATE OR REPLACE FUNCTION parse_json ()
 RETURNS VOID
@@ -65,6 +66,9 @@ $$
            inherited_from:= setting->>'inherited_from';
            setting_json:= jsonb_pretty(setting);
 
+            IF uuid IS NULL THEN
+               uuid:= uuid_generate_v4();
+            END IF;
 --           RAISE NOTICE document_id;
 --           RAISE NOTICE settings_fk;
 --           RAISE NOTICE identifier;
