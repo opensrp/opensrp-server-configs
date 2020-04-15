@@ -23,29 +23,70 @@ RETURNS VOID
 AS
 $$
 
-  DECLARE setting_configurations jsonb;
-  DECLARE setting jsonb;
-  DECLARE setting_id bigint;
+  DECLARE
+      setting_configurations jsonb;
+      setting jsonb;
+      setting_id bigint;
+      document_id varchar;
+      settings_fk bigint;
+      identifier varchar;
+      team varchar;
+      team_id varchar;
+      server_version bigint;
+      provider_id varchar;
+      location_id varchar;
+      setting_key varchar;
+      setting_value varchar;
+      setting_description varchar;
+      setting_type varchar;
+      uuid varchar;
+      inherited_from varchar;
+      setting_json jsonb;
+
 
   BEGIN
     FOR setting_id, setting_configurations IN (SELECT id, json from settings)
     LOOP
         FOR setting IN SELECT * FROM jsonb_array_elements((setting_configurations->>'settings')::jsonb)
         LOOP
-           RAISE NOTICE 'document_id: %', setting_configurations->>'_id';
-           RAISE NOTICE 'setting_id %', setting_id;
-           RAISE NOTICE 'identifier: %', setting_configurations->>'identifier';
-           RAISE NOTICE 'team: %', setting_configurations->>'team';
-           RAISE NOTICE 'team_id: %', setting_configurations->>'teamId';
-           RAISE NOTICE 'provider_id: %', setting_configurations->>'providerId';
-           RAISE NOTICE 'location_id: %', setting->>'locationId';
-           RAISE NOTICE 'setting_key: %', setting->>'key';
-           RAISE NOTICE 'setting_value: %', setting->>'value';
-           RAISE NOTICE 'setting_description: %', setting->>'description';
-           RAISE NOTICE 'setting_type: %', setting->>'type';
-           RAISE NOTICE 'uuid: %', setting->>'uuid';
-           RAISE NOTICE 'json: %', jsonb_pretty(setting);
-        --   INSERT into settings_metadata () VALUES ();
+           document_id:= setting_configurations->>'_id';
+           settings_fk:= setting_id;
+           identifier:= setting_configurations->>'identifier';
+           team:= setting_configurations->>'team';
+           team_id:= setting_configurations->>'teamId';
+           server_version:= setting_configurations->>'serverVersion';
+           provider_id:= setting_configurations->>'providerId';
+           location_id:= setting->>'locationId';
+           setting_key:= setting->>'key';
+           setting_value:= setting->>'value';
+           setting_description:= setting->>'description';
+           setting_type:= setting->>'type';
+           uuid:= setting->>'uuid';
+           inherited_from:= setting->>'inherited_from';
+           setting_json:= jsonb_pretty(setting);
+
+--           RAISE NOTICE document_id;
+--           RAISE NOTICE settings_fk;
+--           RAISE NOTICE identifier;
+--           RAISE NOTICE team;
+--           RAISE NOTICE team_id;
+--           RAISE NOTICE server_version;
+--           RAISE NOTICE provider_id;
+--           RAISE NOTICE location_id;
+--           RAISE NOTICE setting_key;
+--           RAISE NOTICE setting_value;
+--           RAISE NOTICE setting_description;
+--           RAISE NOTICE setting_type;
+--           RAISE NOTICE uuid;
+--           RAISE NOTICE inherited_from;
+--           RAISE NOTICE setting_json;
+
+           INSERT INTO settings_metadata (document_id, settings_id, identifier, team, team_id, server_version, provider_id,
+           location_id, setting_key, setting_value, setting_description, setting_type, uuid, inherited_from, json)
+           VALUES (document_id, settings_fk, identifier, team, team_id, server_version, provider_id, location_id,
+           setting_key, setting_value, setting_description, setting_type, uuid, inherited_from, setting_json)
+           ON CONFLICT DO NOTHING;
+
         END LOOP;
     END LOOP;
   END;
