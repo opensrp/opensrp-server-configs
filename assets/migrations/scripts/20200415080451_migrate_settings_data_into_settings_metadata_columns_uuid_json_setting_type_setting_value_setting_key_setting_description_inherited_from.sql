@@ -53,6 +53,8 @@ $$
     CREATE TABLE settings_backup as TABLE settings;
     CREATE TABLE settings_metadata_backup as TABLE settings_metadata;
 
+--    -- if settings block exists, truncate table
+--    SELECT json->>'settings' FROM settings;
     TRUNCATE TABLE settings_metadata;
 
     -- migrate data
@@ -89,18 +91,20 @@ $$
         END LOOP;
     END LOOP;
 
-    -- drop backup tables and delete settings block since migration is complete
+    -- delete settings block since migration is complete
     UPDATE settings SET json=json-'settings';
-    DROP TABLE settings_backup;
-    DROP TABLE settings_metadata_backup;
   END;
 
 $$ LANGUAGE 'plpgsql';
 
 SELECT parse_json();
 
-
 -- //@UNDO
 -- SQL to undo the change goes here.
-
+DROP TABLE settings;
+DROP TABLE settings_metadata;
+CREATE TABLE settings as TABLE settings_backup;
+CREATE TABLE settings_metadata as TABLE settings_metadata_backup;
+DROP TABLE settings_backup;
+DROP TABLE settings_metadata_backup;
 
