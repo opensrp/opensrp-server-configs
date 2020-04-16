@@ -22,7 +22,7 @@ SET search_path to core;
 -- remove document_id uniqueness constraint
 ALTER TABLE settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
 
-CREATE OR REPLACE FUNCTION parse_json ()
+CREATE OR REPLACE FUNCTION migrate_settings_json ()
 RETURNS VOID
 AS
 $$
@@ -96,7 +96,7 @@ $$
 
 $$ LANGUAGE 'plpgsql';
 
-SELECT parse_json();
+SELECT migrate_settings_json();
 
 -- //@UNDO
 -- SQL to undo the change goes here.
