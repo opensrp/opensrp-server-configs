@@ -50,12 +50,11 @@ $$
 
   BEGIN
     -- create backup tables
-    CREATE TABLE settings_backup as TABLE settings;
-    CREATE TABLE settings_metadata_backup as TABLE settings_metadata;
+--    CREATE TABLE settings_backup as TABLE settings;
+--    CREATE TABLE settings_metadata_backup as TABLE settings_metadata;
 
---    -- if settings block exists, truncate table
---    SELECT json->>'settings' FROM settings;
-    TRUNCATE TABLE settings_metadata;
+    -- delete entries from v1 data
+    DELETE FROM settings_metadata sm WHERE sm.uuid IS NULL;
 
     -- migrate data
     FOR setting_id, setting_configurations IN (SELECT id, json from settings)
@@ -79,7 +78,7 @@ $$
            setting_json:= jsonb_pretty(setting);
 
            IF uuid IS NULL THEN
-               uuid:= uuid_generate_v4();
+                uuid:= uuid_generate_v4();
            END IF;
 
            INSERT INTO settings_metadata (document_id, settings_id, identifier, team, team_id, server_version, provider_id,
@@ -101,10 +100,10 @@ SELECT parse_json();
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-DROP TABLE settings;
-DROP TABLE settings_metadata;
-CREATE TABLE settings as TABLE settings_backup;
-CREATE TABLE settings_metadata as TABLE settings_metadata_backup;
-DROP TABLE settings_backup;
-DROP TABLE settings_metadata_backup;
+--SET search_path to core;
+--DROP TABLE settings CASCADE;
+--CREATE TABLE settings as TABLE settings_backup;
+--CREATE TABLE settings_metadata as TABLE settings_metadata_backup;
+--DROP TABLE settings_backup;
+--DROP TABLE settings_metadata_backup;
 
