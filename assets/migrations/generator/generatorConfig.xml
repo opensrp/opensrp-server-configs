@@ -121,6 +121,9 @@
 			<columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.ManifestTypeHandler"/>
 		</table>
 		 -->
+
+		<table schema="core" tableName="identifier_source" />
+		
 	</context>
 		
 </generatorConfiguration>
