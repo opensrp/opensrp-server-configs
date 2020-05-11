@@ -5,7 +5,7 @@
 	 This script should be run when inside the opensrp-server-core folder.
 	 And opensrp-server-configs should be added as a submodule in a folder called configs in the root of the opensrp-server-core folder -->
 	<classPathEntry location="<project_root>/opensrp-server-core/configs/assets/migrations/drivers/postgresql-42.2.1.jar" />
-	<context id="core">
+	<context id="core" targetRuntime="MyBatis3">
 		<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
 		<jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/opensrp"
 			driverClass="org.postgresql.Driver" password="admin" userId="opensrp_admin" />
