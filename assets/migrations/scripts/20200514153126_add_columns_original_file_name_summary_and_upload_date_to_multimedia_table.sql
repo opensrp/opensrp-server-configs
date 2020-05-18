@@ -18,7 +18,7 @@
 -- Migration SQL that makes the change goes here.
 
 ALTER TABLE core.multi_media ADD COLUMN date_uploaded timestamp;
-ALTER TABLE core.multi_media ADD COLUMN summary jsonb;
+ALTER TABLE core.multi_media ADD COLUMN summary varchar;
 ALTER TABLE core.multi_media ADD COLUMN original_file_name varchar;
 
 -- //@UNDO
