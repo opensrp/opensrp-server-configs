@@ -19,8 +19,6 @@
 
 SET search_path to core;
 
-create extension if not exists "uuid-ossp";
-
 -- remove document_id uniqueness constraint
 ALTER TABLE settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
 
