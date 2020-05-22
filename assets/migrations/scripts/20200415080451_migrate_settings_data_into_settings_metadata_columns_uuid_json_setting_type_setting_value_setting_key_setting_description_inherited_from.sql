@@ -50,8 +50,8 @@ $$
 
   BEGIN
     -- create backup tables
-    CREATE TABLE settings_backup as TABLE settings;
-    CREATE TABLE settings_metadata_backup as TABLE settings_metadata;
+    CREATE TABLE IF NOT EXISTS settings_backup as TABLE settings;
+    CREATE TABLE IF NOT EXISTS settings_metadata_backup as TABLE settings_metadata;
 
     -- delete entries from v1 data
     DELETE FROM settings_metadata sm WHERE sm.uuid IS NULL;
@@ -102,23 +102,23 @@ SELECT migrate_settings_json();
 -- SQL to undo the change goes here.
 SET search_path to core;
 
-DROP TABLE settings CASCADE;
-DROP TABLE settings_metadata;
+DROP TABLE IF EXISTS settings CASCADE;
+DROP TABLE IF EXISTS settings_metadata;
 
-CREATE TABLE settings AS TABLE settings_backup;
-ALTER TABLE settings ADD CONSTRAINT settings_pk PRIMARY KEY (id);
-CREATE TABLE settings_metadata AS TABLE settings_metadata_backup;
-ALTER TABLE settings_metadata ADD CONSTRAINT settings_metadata_pk PRIMARY KEY (id);
-ALTER TABLE settings_metadata ADD CONSTRAINT settings_fk FOREIGN KEY  (settings_id)  REFERENCES settings (id) ON DELETE CASCADE;
+CREATE TABLE IF NOT EXISTS settings AS TABLE settings_backup;
+ALTER TABLE IF EXISTS settings ADD CONSTRAINT settings_pk PRIMARY KEY (id);
+CREATE TABLE IF NOT EXISTS settings_metadata AS TABLE settings_metadata_backup;
+ALTER TABLE IF EXISTS settings_metadata ADD CONSTRAINT settings_metadata_pk PRIMARY KEY (id);
+ALTER TABLE IF EXISTS settings_metadata ADD CONSTRAINT settings_fk FOREIGN KEY  (settings_id)  REFERENCES settings (id) ON DELETE CASCADE;
 
-CREATE SEQUENCE settings_id_seq;
-ALTER TABLE settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq');
-ALTER SEQUENCE settings_id_seq OWNED BY settings.id;
+CREATE SEQUENCE IF NOT EXISTS settings_id_seq;
+ALTER TABLE IF EXISTS settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq');
+ALTER SEQUENCE IF EXISTS settings_id_seq OWNED BY settings.id;
 
-CREATE SEQUENCE settings_metadata_id_seq;
-ALTER TABLE settings_metadata ALTER COLUMN id SET DEFAULT nextval('settings_metadata_id_seq');
-ALTER SEQUENCE settings_metadata_id_seq OWNED BY settings_metadata.id;
+CREATE SEQUENCE IF NOT EXISTS settings_metadata_id_seq;
+ALTER TABLE IF EXISTS settings_metadata ALTER COLUMN id SET DEFAULT nextval('settings_metadata_id_seq');
+ALTER SEQUENCE IF EXISTS settings_metadata_id_seq OWNED BY settings_metadata.id;
 
-DROP TABLE settings_backup;
-DROP TABLE settings_metadata_backup;
+DROP TABLE IF EXISTS settings_backup;
+DROP TABLE IF EXISTS settings_metadata_backup;
 
