@@ -50,8 +50,8 @@ $$
 
   BEGIN
     -- create backup tables
-    CREATE TABLE IF NOT EXISTS settings_backup as TABLE settings;
-    CREATE TABLE IF NOT EXISTS settings_metadata_backup as TABLE settings_metadata;
+    -- CREATE TABLE IF NOT EXISTS settings_backup as TABLE settings;
+    -- CREATE TABLE IF NOT EXISTS settings_metadata_backup as TABLE settings_metadata;
 
     -- delete entries from v1 data
     DELETE FROM settings_metadata sm WHERE sm.uuid IS NULL;
