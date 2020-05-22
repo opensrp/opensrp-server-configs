@@ -79,9 +79,9 @@ $$
            inherited_from:= setting->>'inherited_from';
            setting_json:= jsonb_pretty(setting);
 
-           IF uuid IS NULL THEN
-                uuid:= "";
-           END IF;
+          /* IF uuid IS NULL THEN
+                uuid:= '';
+           END IF;*/
 
            INSERT INTO settings_metadata (document_id, settings_id, identifier, team, team_id, server_version, provider_id,
            location_id, setting_key, setting_value, setting_description, setting_type, uuid, inherited_from, json)
