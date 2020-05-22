@@ -20,7 +20,7 @@
 SET search_path to core;
 
 -- remove document_id uniqueness constraint
-ALTER TABLE settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
+-- ALTER TABLE IF EXISTS settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
 
 CREATE OR REPLACE FUNCTION migrate_settings_json ()
 RETURNS VOID
