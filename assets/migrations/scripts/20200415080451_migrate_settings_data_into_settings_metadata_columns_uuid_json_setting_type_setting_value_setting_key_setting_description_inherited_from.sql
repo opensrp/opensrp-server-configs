@@ -80,7 +80,7 @@ $$
            setting_json:= jsonb_pretty(setting);
 
            IF uuid IS NULL THEN
-                uuid:= uuid_generate_v4();
+                uuid:= "";
            END IF;
 
            INSERT INTO settings_metadata (document_id, settings_id, identifier, team, team_id, server_version, provider_id,
