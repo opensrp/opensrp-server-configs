@@ -39,5 +39,3 @@ ALTER TABLE core.settings_metadata DROP COLUMN setting_key VARCHAR;
 ALTER TABLE core.settings_metadata DROP COLUMN setting_description VARCHAR;
 ALTER TABLE core.settings_metadata DROP COLUMN setting_label VARCHAR;
 ALTER TABLE core.settings_metadata DROP COLUMN inherited_from VARCHAR;
-
-
