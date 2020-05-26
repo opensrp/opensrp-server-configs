@@ -20,7 +20,7 @@
 SET search_path to core;
 
 -- remove document_id uniqueness constraint
--- ALTER TABLE IF EXISTS settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
+ALTER TABLE IF EXISTS settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
 
 CREATE OR REPLACE FUNCTION migrate_settings_json ()
 RETURNS VOID
@@ -50,8 +50,8 @@ $$
 
   BEGIN
     -- create backup tables
-    -- CREATE TABLE IF NOT EXISTS settings_backup as TABLE settings;
-    -- CREATE TABLE IF NOT EXISTS settings_metadata_backup as TABLE settings_metadata;
+    CREATE TABLE IF NOT EXISTS settings_backup as TABLE settings;
+    CREATE TABLE IF NOT EXISTS settings_metadata_backup as TABLE settings_metadata;
 
     -- delete entries from v1 data
     DELETE FROM settings_metadata sm WHERE sm.uuid IS NULL;
