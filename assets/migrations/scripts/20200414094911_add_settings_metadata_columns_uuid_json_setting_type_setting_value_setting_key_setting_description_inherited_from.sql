@@ -22,6 +22,7 @@ ALTER TABLE core.settings_metadata ADD COLUMN setting_type VARCHAR;
 ALTER TABLE core.settings_metadata ADD COLUMN setting_value VARCHAR;
 ALTER TABLE core.settings_metadata ADD COLUMN setting_key VARCHAR;
 ALTER TABLE core.settings_metadata ADD COLUMN setting_description VARCHAR;
+ALTER TABLE core.settings_metadata ADD COLUMN setting_label VARCHAR;
 ALTER TABLE core.settings_metadata ADD COLUMN inherited_from VARCHAR;
 
 -- Add search fields index
@@ -36,6 +37,7 @@ ALTER TABLE core.settings_metadata DROP COLUMN setting_type VARCHAR;
 ALTER TABLE core.settings_metadata DROP COLUMN setting_value VARCHAR;
 ALTER TABLE core.settings_metadata DROP COLUMN setting_key VARCHAR;
 ALTER TABLE core.settings_metadata DROP COLUMN setting_description VARCHAR;
+ALTER TABLE core.settings_metadata DROP COLUMN setting_label VARCHAR;
 ALTER TABLE core.settings_metadata DROP COLUMN inherited_from VARCHAR;
 
 
