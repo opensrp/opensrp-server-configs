@@ -15,7 +15,7 @@ CREATE INDEX unique_id_identifier_index ON core.unique_id (identifier);
 -- SQL to undo the change goes here.
 ALTER TABLE core.unique_id DROP CONSTRAINT fk_identifier_source_id;
 
-DROP INDEX unique_id_identifier_index;
+DROP INDEX IF EXISTS core.unique_id_identifier_index;
 
 ALTER TABLE core.unique_id DROP COLUMN identifier;
 
