@@ -13,7 +13,7 @@ CREATE TABLE core.identifier_source
     suffix character varying,
     min_length int NOT NULL,
     max_length int NOT NULL,
-    skip_regex_format character varying,
+    regex_format character varying,
     PRIMARY KEY (id)
 )
 WITH (
