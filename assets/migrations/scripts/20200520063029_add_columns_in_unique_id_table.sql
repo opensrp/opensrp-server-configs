@@ -3,7 +3,7 @@
 
 ALTER TABLE core.unique_id ADD COLUMN identifier VARCHAR;
 
-ALTER TABLE core.unique_id ADD COLUMN id_source bigserial;
+ALTER TABLE core.unique_id ADD COLUMN id_source bigint DEFAULT NULL;
 
 ALTER TABLE core.unique_id ADD COLUMN is_reserved BOOLEAN DEFAULT FALSE;
 
