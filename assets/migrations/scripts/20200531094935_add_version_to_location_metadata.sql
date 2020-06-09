@@ -17,7 +17,7 @@
 -- // add version to location metadata
 -- Migration SQL that makes the change goes here.
 
-ALTER TABLE core.location_metadata Add column version integer NOT NULL DEFAULT 1;
+ALTER TABLE core.location_metadata Add column version integer NOT NULL DEFAULT 0;
 
 ALTER TABLE core.location_metadata DROP CONSTRAINT IF EXISTS location_metadata_geojson_id_key;
 ALTER TABLE core.location_metadata ADD CONSTRAINT location_metadata_geojson_id_version_indx UNIQUE (geojson_id, version);
