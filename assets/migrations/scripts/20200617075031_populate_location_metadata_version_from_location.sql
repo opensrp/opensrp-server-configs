@@ -14,19 +14,12 @@
 --    limitations under the License.
 --
 
--- // add version to location metadata
+-- // populate location metadata version from location
 -- Migration SQL that makes the change goes here.
 
-ALTER TABLE core.location_metadata Add column version integer NOT NULL DEFAULT 0;
-
-ALTER TABLE core.location_metadata DROP CONSTRAINT IF EXISTS location_metadata_geojson_id_key;
-ALTER TABLE core.location_metadata ADD CONSTRAINT location_metadata_geojson_id_version_indx UNIQUE (geojson_id, version);
+UPDATE core.location_metadata SET version = (select json ->'properties' ->> 'version' from core.location WHERE core.location.id = core.location_metadata.location_id)::INTEGER;
 
 -- //@UNDO
 -- SQL to undo the change goes here.
 
-ALTER TABLE core.location_metadata DROP CONSTRAINT IF EXISTS location_metadata_geojson_id_version_indx;
-ALTER TABLE core.location_metadata ADD CONSTRAINT location_metadata_geojson_id_key UNIQUE  (geojson_id);
-
-ALTER TABLE core.location_metadata DROP column version;
 
