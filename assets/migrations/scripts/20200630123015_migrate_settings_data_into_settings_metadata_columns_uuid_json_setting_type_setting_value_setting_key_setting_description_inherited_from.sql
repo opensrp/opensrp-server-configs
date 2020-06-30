@@ -19,6 +19,11 @@
 
 SET search_path to core;
 
+-- Sometimes the uuid-ossp extension is not available so we delete & re-create it in order to generate the
+-- uuid_generate_v4() function
+DROP EXTENSION "uuid-ossp";
+CREATE EXTENSION "uuid-ossp";
+
 -- remove document_id uniqueness constraint
 ALTER TABLE IF EXISTS settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
 
@@ -79,12 +84,13 @@ BEGIN
                     inherited_from:= setting->>'inherited_from';
                     setting_json:= jsonb_pretty(setting);
 
-                    /* IF uuid IS NULL THEN
-                          uuid:= '';
-                     END IF;*/
+                    IF uuid IS NULL THEN
+                        uuid:= uuid_generate_v4();
+                    END IF;
 
                     INSERT INTO settings_metadata (document_id, settings_id, identifier, team, team_id, server_version, provider_id,
-                                                   location_id, setting_key, setting_value, setting_description,setting_label, setting_type, uuid, inherited_from, json)
+                                                   location_id, setting_key, setting_value, setting_description,
+                                                   setting_label, setting_type, uuid, inherited_from, json)
                     VALUES (document_id, settings_fk, identifier, team, team_id, server_version, provider_id, location_id,
                             setting_key, setting_value, setting_description,setting_label, setting_type, uuid, inherited_from, setting_json)
                     ON CONFLICT DO NOTHING;
@@ -121,6 +127,6 @@ CREATE SEQUENCE IF NOT EXISTS settings_metadata_id_seq;
 ALTER TABLE IF EXISTS settings_metadata ALTER COLUMN id SET DEFAULT nextval('settings_metadata_id_seq');
 ALTER SEQUENCE IF EXISTS settings_metadata_id_seq OWNED BY settings_metadata.id;
 
-DROP TABLE IF EXISTS settings_backup;
 DROP TABLE IF EXISTS settings_metadata_backup;
+DROP TABLE IF EXISTS settings_backup CASCADE;
 

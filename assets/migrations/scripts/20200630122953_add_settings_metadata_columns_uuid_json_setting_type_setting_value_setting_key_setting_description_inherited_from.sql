@@ -31,11 +31,11 @@ CREATE INDEX IF NOT EXISTS settings_search_fields_index ON core.settings_metadat
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-ALTER TABLE core.settings_metadata DROP COLUMN uuid VARCHAR;
-ALTER TABLE core.settings_metadata DROP COLUMN json jsonb;
-ALTER TABLE core.settings_metadata DROP COLUMN setting_type VARCHAR;
-ALTER TABLE core.settings_metadata DROP COLUMN setting_value VARCHAR;
-ALTER TABLE core.settings_metadata DROP COLUMN setting_key VARCHAR;
-ALTER TABLE core.settings_metadata DROP COLUMN setting_description VARCHAR;
-ALTER TABLE core.settings_metadata DROP COLUMN setting_label VARCHAR;
-ALTER TABLE core.settings_metadata DROP COLUMN inherited_from VARCHAR;
+ALTER TABLE core.settings_metadata DROP COLUMN uuid;
+ALTER TABLE core.settings_metadata DROP COLUMN json;
+ALTER TABLE core.settings_metadata DROP COLUMN setting_type;
+ALTER TABLE core.settings_metadata DROP COLUMN setting_value;
+ALTER TABLE core.settings_metadata DROP COLUMN setting_key;
+ALTER TABLE core.settings_metadata DROP COLUMN setting_description;
+ALTER TABLE core.settings_metadata DROP COLUMN setting_label;
+ALTER TABLE core.settings_metadata DROP COLUMN inherited_from;
