@@ -19,8 +19,8 @@
 
 SET search_path to core;
 
--- Sometimes the uuid-ossp extension is not available so we delete & re-create it in order to generate the
--- uuid_generate_v4() function
+-- Sometimes the uuid-ossp extension does not have the uuid_generate_v4() function so we delete & re-create it in order to
+-- generate the uuid_generate_v4() function
 DROP EXTENSION IF EXISTS "uuid-ossp";
 CREATE EXTENSION "uuid-ossp";
 
