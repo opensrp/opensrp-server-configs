@@ -25,33 +25,34 @@ DROP EXTENSION IF EXISTS "uuid-ossp";
 CREATE EXTENSION "uuid-ossp";
 
 -- remove document_id uniqueness constraint
-ALTER TABLE IF EXISTS settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
+ALTER TABLE IF EXISTS settings_metadata
+    DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
 
-CREATE OR REPLACE FUNCTION migrate_settings_json ()
+CREATE OR REPLACE FUNCTION migrate_settings_json()
     RETURNS VOID
 AS
 $$
 
 DECLARE
     setting_configurations jsonb;
-    setting jsonb;
-    setting_id bigint;
-    document_id varchar;
-    settings_fk bigint;
-    identifier varchar;
-    team varchar;
-    team_id varchar;
-    server_version bigint;
-    provider_id varchar;
-    location_id varchar;
-    setting_key varchar;
-    setting_value varchar;
-    setting_description varchar;
-    setting_label varchar;
-    setting_type varchar;
-    uuid varchar;
-    inherited_from varchar;
-    setting_json jsonb;
+    setting                jsonb;
+    setting_id             bigint;
+    document_id            varchar;
+    settings_fk            bigint;
+    identifier             varchar;
+    team                   varchar;
+    team_id                varchar;
+    server_version         bigint;
+    provider_id            varchar;
+    location_id            varchar;
+    setting_key            varchar;
+    setting_value          varchar;
+    setting_description    varchar;
+    setting_label          varchar;
+    setting_type           varchar;
+    uuid                   varchar;
+    inherited_from         varchar;
+    setting_json           jsonb;
 
 
 BEGIN
@@ -65,41 +66,51 @@ BEGIN
     -- migrate data
     FOR setting_id, setting_configurations IN (SELECT id, json from settings)
         LOOP
-            FOR setting IN SELECT * FROM jsonb_array_elements((setting_configurations->>'settings')::jsonb)
+            FOR setting IN SELECT * FROM jsonb_array_elements((setting_configurations ->> 'settings')::jsonb)
                 LOOP
-                    document_id:= setting_configurations->>'_id';
-                    settings_fk:= setting_id;
-                    identifier:= setting_configurations->>'identifier';
-                    team:= setting_configurations->>'team';
-                    team_id:= setting_configurations->>'teamId';
-                    server_version:= setting_configurations->>'serverVersion';
-                    provider_id:= setting_configurations->>'providerId';
-                    location_id:= setting_configurations->>'locationId';
-                    setting_key:= setting->>'key';
-                    setting_value:= setting->>'value';
-                    setting_description:= setting->>'description';
-                    setting_label:= setting->>'label';
-                    setting_type:= setting->>'type';
-                    uuid:= setting->>'uuid';
-                    inherited_from:= setting->>'inherited_from';
-                    setting_json:= jsonb_pretty(setting);
+                    document_id := setting_configurations ->> '_id';
+                    settings_fk := setting_id;
+                    identifier := setting_configurations ->> 'identifier';
+                    team := setting_configurations ->> 'team';
+                    team_id := setting_configurations ->> 'teamId';
+                    server_version := setting_configurations ->> 'serverVersion';
+                    provider_id := setting_configurations ->> 'providerId';
+                    location_id := setting_configurations ->> 'locationId';
+                    setting_key := setting ->> 'key';
+
+                    IF setting ->> 'value' IS NOT NULL THEN
+                        setting_value := setting ->> 'value';
+                    END if;
+
+                    IF setting ->> 'values' IS NOT NULL THEN
+                        setting_value := setting ->> 'values';
+                    END if;
+
+                    setting_description := setting ->> 'description';
+                    setting_label := setting ->> 'label';
+                    setting_type := setting ->> 'type';
+                    uuid := setting ->> 'uuid';
+                    inherited_from := setting ->> 'inherited_from';
+                    setting_json := jsonb_pretty(setting);
 
                     IF uuid IS NULL THEN
-                        uuid:= uuid_generate_v4();
+                        uuid := uuid_generate_v4();
                     END IF;
 
-                    INSERT INTO settings_metadata (document_id, settings_id, identifier, team, team_id, server_version, provider_id,
+                    INSERT INTO settings_metadata (document_id, settings_id, identifier, team, team_id, server_version,
+                                                   provider_id,
                                                    location_id, setting_key, setting_value, setting_description,
                                                    setting_label, setting_type, uuid, inherited_from, json)
                     VALUES (document_id, settings_fk, identifier, team, team_id, server_version, provider_id, location_id,
-                            setting_key, setting_value, setting_description,setting_label, setting_type, uuid, inherited_from, setting_json)
+                            setting_key, setting_value, setting_description, setting_label, setting_type, uuid,
+                            inherited_from, setting_json)
                     ON CONFLICT DO NOTHING;
 
                 END LOOP;
         END LOOP;
 
     -- delete settings block since migration is complete
-    UPDATE settings SET json=json-'settings';
+    UPDATE settings SET json=json - 'settings';
 END;
 
 $$ LANGUAGE 'plpgsql';
@@ -114,17 +125,22 @@ DROP TABLE IF EXISTS settings CASCADE;
 DROP TABLE IF EXISTS settings_metadata;
 
 CREATE TABLE IF NOT EXISTS settings AS TABLE settings_backup;
-ALTER TABLE IF EXISTS settings ADD CONSTRAINT settings_pk PRIMARY KEY (id);
+ALTER TABLE IF EXISTS settings
+    ADD CONSTRAINT settings_pk PRIMARY KEY (id);
 CREATE TABLE IF NOT EXISTS settings_metadata AS TABLE settings_metadata_backup;
-ALTER TABLE IF EXISTS settings_metadata ADD CONSTRAINT settings_metadata_pk PRIMARY KEY (id);
-ALTER TABLE IF EXISTS settings_metadata ADD CONSTRAINT settings_fk FOREIGN KEY  (settings_id)  REFERENCES settings (id) ON DELETE CASCADE;
+ALTER TABLE IF EXISTS settings_metadata
+    ADD CONSTRAINT settings_metadata_pk PRIMARY KEY (id);
+ALTER TABLE IF EXISTS settings_metadata
+    ADD CONSTRAINT settings_fk FOREIGN KEY (settings_id) REFERENCES settings (id) ON DELETE CASCADE;
 
 CREATE SEQUENCE IF NOT EXISTS settings_id_seq;
-ALTER TABLE IF EXISTS settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq');
+ALTER TABLE IF EXISTS settings
+    ALTER COLUMN id SET DEFAULT nextval('settings_id_seq');
 ALTER SEQUENCE IF EXISTS settings_id_seq OWNED BY settings.id;
 
 CREATE SEQUENCE IF NOT EXISTS settings_metadata_id_seq;
-ALTER TABLE IF EXISTS settings_metadata ALTER COLUMN id SET DEFAULT nextval('settings_metadata_id_seq');
+ALTER TABLE IF EXISTS settings_metadata
+    ALTER COLUMN id SET DEFAULT nextval('settings_metadata_id_seq');
 ALTER SEQUENCE IF EXISTS settings_metadata_id_seq OWNED BY settings_metadata.id;
 
 DROP TABLE IF EXISTS settings_metadata_backup;
