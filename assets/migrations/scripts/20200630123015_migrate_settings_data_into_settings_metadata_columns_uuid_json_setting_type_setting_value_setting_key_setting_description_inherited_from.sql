@@ -17,16 +17,15 @@
 -- // migrate_settings_data_into_settings_metadata_columns_uuid_json_setting_type_setting_value_setting_key_setting_description_inherited_from
 -- Migration SQL that makes the change goes here.
 
-SET search_path to core;
-
 -- Sometimes the uuid-ossp extension does not have the uuid_generate_v4() function so we delete & re-create it in order to
 -- generate the uuid_generate_v4() function
 DROP EXTENSION IF EXISTS "uuid-ossp";
 CREATE EXTENSION "uuid-ossp";
 
+SET search_path to core;
+
 -- remove document_id uniqueness constraint
-ALTER TABLE IF EXISTS settings_metadata
-    DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
+ALTER TABLE IF EXISTS settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
 
 CREATE OR REPLACE FUNCTION migrate_settings_json()
     RETURNS VOID
