@@ -20,7 +20,7 @@
 -- Sometimes the uuid-ossp extension does not have the uuid_generate_v4() function so we delete & re-create it in order to
 -- generate the uuid_generate_v4() function
 /*DROP EXTENSION IF EXISTS "uuid-ossp";*/
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" schema core;
 
 SET search_path to core;
 
@@ -145,4 +145,3 @@ ALTER SEQUENCE IF EXISTS settings_metadata_id_seq OWNED BY settings_metadata.id;
 
 DROP TABLE IF EXISTS settings_metadata_backup;
 DROP TABLE IF EXISTS settings_backup CASCADE;
-
