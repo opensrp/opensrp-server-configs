@@ -19,13 +19,14 @@
 
 -- Sometimes the uuid-ossp extension does not have the uuid_generate_v4() function so we delete & re-create it in order to
 -- generate the uuid_generate_v4() function
-DROP EXTENSION IF EXISTS "uuid-ossp";
-CREATE EXTENSION "uuid-ossp";
+/*DROP EXTENSION IF EXISTS "uuid-ossp";*/
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 SET search_path to core;
 
 -- remove document_id uniqueness constraint
-ALTER TABLE IF EXISTS settings_metadata DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
+ALTER TABLE IF EXISTS settings_metadata
+    DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
 
 CREATE OR REPLACE FUNCTION migrate_settings_json()
     RETURNS VOID
