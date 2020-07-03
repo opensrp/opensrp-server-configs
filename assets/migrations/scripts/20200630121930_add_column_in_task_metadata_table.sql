@@ -5,6 +5,9 @@ ALTER TABLE core.task_metadata ADD COLUMN code VARCHAR DEFAULT NULL;
 
 CREATE INDEX task_metadata_index ON core.task_metadata(for_entity,plan_identifier,code);
 
+UPDATE core.task_metadata
+SET code = (select json ->> 'code' from core.task where task.id = task_metadata.task_id);
+
 -- //@UNDO
 -- SQL to undo the change goes here.
 
