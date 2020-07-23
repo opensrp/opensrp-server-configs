@@ -62,7 +62,7 @@
     </logger>
     
     <logger name="org.opensrp">
-        <level value="DEBUG"/>
+        <level value="INFO"/>
     </logger>
 
     <logger name="DRISHTI_REPORT_MONITOR">
