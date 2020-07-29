@@ -24,8 +24,11 @@ USING BTREE ((json->'properties'->>'geographicLevel'),(json->'properties'->>'sta
 --Location Id index
 CREATE INDEX IF NOT EXISTS  location_metadata_location_id_idx ON core.location_metadata(location_id);
 
---Parent Id index
+--Location Parent Id index
 CREATE INDEX IF NOT EXISTS  location_metadata_parent_status_idx ON core.location_metadata(parent_id,status);
+
+--Structure Parent Id index
+CREATE INDEX IF NOT EXISTS  structure_metadata_parent_idx ON core.structure_metadata(parent_id);
 
 
 -- //@UNDO
@@ -33,4 +36,5 @@ CREATE INDEX IF NOT EXISTS  location_metadata_parent_status_idx ON core.location
 DROP INDEX IF EXISTS  core.location_properties_json_idx;
 DROP INDEX IF EXISTS  core.location_metadata_location_id_idx;
 DROP INDEX IF EXISTS  core.location_metadata_parent_status_idx;
+DROP INDEX IF EXISTS  core.structure_metadata_parent_idx;
 
