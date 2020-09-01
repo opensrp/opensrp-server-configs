@@ -121,13 +121,17 @@
 			<columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.ManifestTypeHandler"/>
 		</table>
 		 -->
-		<table schema="core" tableName="settings">
-			<columnOverride column="json"
-							typeHandler="org.opensrp.repository.postgres.handler.SettingTypeHandler" />
+<!--		<table schema="core" tableName="settings">-->
+<!--			<columnOverride column="json"-->
+<!--							typeHandler="org.opensrp.repository.postgres.handler.SettingTypeHandler" />-->
+<!--		</table>-->
+
+<!--		<table schema="core" tableName="settings_metadata" typeHandler="org.opensrp.repository.postgres.handler.SettingMetadataTypeHandler" />-->
+<!--		<table schema="core" tableName="identifier_source" />-->
+		<table schema="core" tableName="product_catalogue">
+			<columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.ProductCatalogueTypeHandler"/>
 		</table>
 
-		<table schema="core" tableName="settings_metadata" typeHandler="org.opensrp.repository.postgres.handler.SettingMetadataTypeHandler" />
-		<table schema="core" tableName="identifier_source" />
 	</context>
 		
 </generatorConfiguration>
