@@ -16,26 +16,37 @@
 
 -- // add_server_version_sequences
 -- Migration SQL that makes the change goes here.
-CREATE SEQUENCE core.event_server_version_seq;
-CREATE SEQUENCE core.client_server_version_seq;
-CREATE SEQUENCE core.location_server_version_seq;
-CREATE SEQUENCE core.stucture_server_version_seq;
-CREATE SEQUENCE core.plan_server_version_seq;
-CREATE SEQUENCE core.task_server_version_seq;
-CREATE SEQUENCE core.setting_server_version_seq;
-CREATE SEQUENCE core.view_config_server_version_seq;
+--Create Sequences
+CREATE SEQUENCE IF NOT EXISTS core.event_server_version_seq;
+CREATE SEQUENCE IF NOT EXISTS core.client_server_version_seq;
+CREATE SEQUENCE IF NOT EXISTS core.location_server_version_seq;
+CREATE SEQUENCE IF NOT EXISTS core.stucture_server_version_seq;
+CREATE SEQUENCE IF NOT EXISTS core.plan_server_version_seq;
+CREATE SEQUENCE IF NOT EXISTS core.task_server_version_seq;
+CREATE SEQUENCE IF NOT EXISTS core.setting_server_version_seq;
+CREATE SEQUENCE IF NOT EXISTS core.view_config_server_version_seq;
+
+--populate sequences with Max server versions
+SELECT setval('core.event_server_version_seq',(SELECT max(server_version )+1 FROM core.event_metadata));
+SELECT setval('core.client_server_version_seq',(SELECT max(server_version )+1 FROM core.client_metadata));
+SELECT setval('core.location_server_version_seq',(SELECT max(server_version )+1 FROM core.location_metadata));
+SELECT setval('core.stucture_server_version_seq',(SELECT max(server_version )+1 FROM core.structure_metadata));
+SELECT setval('core.plan_server_version_seq',(SELECT max(server_version )+1 FROM core.plan_metadata));
+SELECT setval('core.task_server_version_seq',(SELECT max(server_version )+1 FROM core.task_metadata));
+SELECT setval('core.setting_server_version_seq',(SELECT max(server_version )+1 FROM core.settings_metadata));
+SELECT setval('core.view_config_server_version_seq',(SELECT max(server_version )+1 FROM core.view_configuration_metadata));
 
 
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-DROP SEQUENCE core.event_server_version_seq;
-DROP SEQUENCE core.client_server_version_seq;
-DROP SEQUENCE core.location_server_version_seq;
-DROP SEQUENCE core.stucture_server_version_seq;
-DROP SEQUENCE core.plan_server_version_seq;
-DROP SEQUENCE core.task_server_version_seq;
-DROP SEQUENCE core.setting_server_version_seq;
-DROP SEQUENCE core.view_config_server_version_seq;
+DROP SEQUENCE IF EXISTS core.event_server_version_seq;
+DROP SEQUENCE IF EXISTS core.client_server_version_seq;
+DROP SEQUENCE IF EXISTS core.location_server_version_seq;
+DROP SEQUENCE IF EXISTS core.stucture_server_version_seq;
+DROP SEQUENCE IF EXISTS core.plan_server_version_seq;
+DROP SEQUENCE IF EXISTS core.task_server_version_seq;
+DROP SEQUENCE IF EXISTS core.setting_server_version_seq;
+DROP SEQUENCE IF EXISTS core.view_config_server_version_seq;
 
 
