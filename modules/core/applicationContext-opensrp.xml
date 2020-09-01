@@ -29,17 +29,6 @@
 			fixed-delay="${schedule.event.add.serverVersion.interval}" />
 		<!--<task:scheduled ref="openmrsAtomfeedListener" method="syncAtomfeeds" -->
 		<!--fixed-delay="900000" /> -->
-		<task:scheduled ref="viewConfigurationService"
-			method="addServerVersion"
-			fixed-delay="${schedule.view.add.serverVersion.interval}" />
-		<task:scheduled ref="taskService"
-			method="addServerVersion"
-			fixed-delay="${schedule.task.add.serverVersion.interval}" />
-
-		<task:scheduled ref="physicalLocationService"
-			method="addServerVersion"
-			fixed-delay="${schedule.location.add.serverVersion.interval}" />
-
 	</task:scheduled-tasks>
 
 	<beans profile="openmrs-sync">
