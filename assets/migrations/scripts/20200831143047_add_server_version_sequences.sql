@@ -24,6 +24,8 @@ CREATE SEQUENCE IF NOT EXISTS core.stucture_server_version_seq;
 CREATE SEQUENCE IF NOT EXISTS core.plan_server_version_seq;
 CREATE SEQUENCE IF NOT EXISTS core.task_server_version_seq;
 CREATE SEQUENCE IF NOT EXISTS core.setting_server_version_seq;
+CREATE SEQUENCE IF NOT EXISTS core.stock_server_version_seq;
+CREATE SEQUENCE IF NOT EXISTS core.report_server_version_seq;
 CREATE SEQUENCE IF NOT EXISTS core.view_config_server_version_seq;
 
 --populate sequences with Max server versions
@@ -34,6 +36,8 @@ SELECT setval('core.stucture_server_version_seq',(SELECT max(server_version )+1 
 SELECT setval('core.plan_server_version_seq',(SELECT max(server_version )+1 FROM core.plan p ));
 SELECT setval('core.task_server_version_seq',(SELECT max(server_version )+1 FROM core.task_metadata));
 SELECT setval('core.setting_server_version_seq',(SELECT max(server_version )+1 FROM core.settings_metadata));
+SELECT setval('core.stock_server_version_seq',(SELECT max(server_version )+1 FROM core.stock_metadata));
+SELECT setval('core.report_server_version_seq',(SELECT max(server_version )+1 FROM core.report_metadata));
 SELECT setval('core.view_config_server_version_seq',(SELECT max(server_version )+1 FROM core.view_configuration_metadata));
 
 
@@ -47,6 +51,8 @@ DROP SEQUENCE IF EXISTS core.stucture_server_version_seq;
 DROP SEQUENCE IF EXISTS core.plan_server_version_seq;
 DROP SEQUENCE IF EXISTS core.task_server_version_seq;
 DROP SEQUENCE IF EXISTS core.setting_server_version_seq;
+DROP SEQUENCE IF EXISTS core.stock_server_version_seq;
+DROP SEQUENCE IF EXISTS core.report_server_version_seq;
 DROP SEQUENCE IF EXISTS core.view_config_server_version_seq;
 
 
