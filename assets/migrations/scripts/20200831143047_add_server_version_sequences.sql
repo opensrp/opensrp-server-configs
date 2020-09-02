@@ -33,7 +33,7 @@ SELECT setval('core.event_server_version_seq',(SELECT max(server_version )+1 FRO
 SELECT setval('core.client_server_version_seq',(SELECT max(server_version )+1 FROM core.client_metadata));
 SELECT setval('core.location_server_version_seq',(SELECT max(server_version )+1 FROM core.location_metadata));
 SELECT setval('core.stucture_server_version_seq',(SELECT max(server_version )+1 FROM core.structure_metadata));
-SELECT setval('core.plan_server_version_seq',(SELECT max(server_version )+1 FROM core.plan p ));
+SELECT setval('core.plan_server_version_seq',(SELECT max(server_version )+1 FROM core.plan ));
 SELECT setval('core.task_server_version_seq',(SELECT max(server_version )+1 FROM core.task_metadata));
 SELECT setval('core.setting_server_version_seq',(SELECT max(server_version )+1 FROM core.settings_metadata));
 SELECT setval('core.stock_server_version_seq',(SELECT max(server_version )+1 FROM core.stock_metadata));
