@@ -20,7 +20,7 @@
 CREATE SEQUENCE IF NOT EXISTS core.event_server_version_seq;
 CREATE SEQUENCE IF NOT EXISTS core.client_server_version_seq;
 CREATE SEQUENCE IF NOT EXISTS core.location_server_version_seq;
-CREATE SEQUENCE IF NOT EXISTS core.stucture_server_version_seq;
+CREATE SEQUENCE IF NOT EXISTS core.structure_server_version_seq;
 CREATE SEQUENCE IF NOT EXISTS core.plan_server_version_seq;
 CREATE SEQUENCE IF NOT EXISTS core.task_server_version_seq;
 CREATE SEQUENCE IF NOT EXISTS core.setting_server_version_seq;
@@ -32,7 +32,7 @@ CREATE SEQUENCE IF NOT EXISTS core.view_config_server_version_seq;
 SELECT setval('core.event_server_version_seq',(SELECT max(server_version )+1 FROM core.event_metadata));
 SELECT setval('core.client_server_version_seq',(SELECT max(server_version )+1 FROM core.client_metadata));
 SELECT setval('core.location_server_version_seq',(SELECT max(server_version )+1 FROM core.location_metadata));
-SELECT setval('core.stucture_server_version_seq',(SELECT max(server_version )+1 FROM core.structure_metadata));
+SELECT setval('core.structure_server_version_seq',(SELECT max(server_version )+1 FROM core.structure_metadata));
 SELECT setval('core.plan_server_version_seq',(SELECT max(server_version )+1 FROM core.plan ));
 SELECT setval('core.task_server_version_seq',(SELECT max(server_version )+1 FROM core.task_metadata));
 SELECT setval('core.setting_server_version_seq',(SELECT max(server_version )+1 FROM core.settings_metadata));
@@ -47,7 +47,7 @@ SELECT setval('core.view_config_server_version_seq',(SELECT max(server_version )
 DROP SEQUENCE IF EXISTS core.event_server_version_seq;
 DROP SEQUENCE IF EXISTS core.client_server_version_seq;
 DROP SEQUENCE IF EXISTS core.location_server_version_seq;
-DROP SEQUENCE IF EXISTS core.stucture_server_version_seq;
+DROP SEQUENCE IF EXISTS core.structure_server_version_seq;
 DROP SEQUENCE IF EXISTS core.plan_server_version_seq;
 DROP SEQUENCE IF EXISTS core.task_server_version_seq;
 DROP SEQUENCE IF EXISTS core.setting_server_version_seq;
