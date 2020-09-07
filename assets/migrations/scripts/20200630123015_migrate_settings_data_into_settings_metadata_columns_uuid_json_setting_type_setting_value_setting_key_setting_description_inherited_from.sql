@@ -20,6 +20,8 @@
 -- Sometimes the uuid-ossp extension does not have the uuid_generate_v4() function so we delete & re-create it in order to
 -- generate the uuid_generate_v4() function
 --/*DROP EXTENSION IF EXISTS "uuid-ossp";*/
+
+SET client_min_messages TO WARNING;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" schema core;
 
 SET search_path to core;
