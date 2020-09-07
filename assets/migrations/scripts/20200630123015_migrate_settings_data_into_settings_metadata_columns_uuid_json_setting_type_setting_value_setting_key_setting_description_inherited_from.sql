@@ -17,11 +17,10 @@
 -- // migrate_settings_data_into_settings_metadata_columns_uuid_json_setting_type_setting_value_setting_key_setting_description_inherited_from
 -- Migration SQL that makes the change goes here.
 
+SET client_min_messages TO WARNING;
+
 -- Sometimes the uuid-ossp extension does not have the uuid_generate_v4() function so we delete & re-create it in order to
 -- generate the uuid_generate_v4() function
---/*DROP EXTENSION IF EXISTS "uuid-ossp";*/
-
-SET client_min_messages TO WARNING;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" schema core;
 
 SET search_path to core;
