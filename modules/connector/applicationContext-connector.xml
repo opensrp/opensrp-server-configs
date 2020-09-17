@@ -26,6 +26,7 @@
 		<context:exclude-filter type="regex"
 			expression="org.opensrp.connector.rapidpro..*" />
     </context:component-scan>
+	<context:component-scan base-package="org.smartregister.stock.openlmis" />
     
     <beans profile="atomfeed">
     	<context:component-scan base-package="org.opensrp.connector.atomfeed"/>
