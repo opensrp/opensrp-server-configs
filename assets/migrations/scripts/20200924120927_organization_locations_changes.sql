@@ -20,10 +20,10 @@
 DELETE FROM team.organization_location WHERE  to_date < from_date;
 ALTER TABLE team.organization_location DROP CONSTRAINT organization_location_organization_id_location_id_plan_id_key ;
 ALTER TABLE team.organization_location ADD column duration daterange;
-UPDATE team.organization_location  set duration=daterange(from_date,to_date);
+UPDATE team.organization_location  SET duration=daterange(from_date,to_date);
 CREATE INDEX organization_location_plan_duration_index ON team.organization_location(organization_id, location_id, plan_id, duration);
 
- CREATE EXTENSION IF NOT EXISTS btree_gist SCHEMA team ;
+CREATE EXTENSION IF NOT EXISTS btree_gist SCHEMA team ;
 
 ALTER TABLE team.organization_location ADD CONSTRAINT organization_location_exclusion_key 
  EXCLUDE USING gist (
@@ -37,5 +37,9 @@ ALTER TABLE team.organization_location ADD CONSTRAINT organization_location_excl
 
 -- //@UNDO
 -- SQL to undo the change goes here.
+ALTER TABLE team.organization_location DROP CONSTRAINT organization_location_exclusion_key ;
+ALTER TABLE team.organization_location DROP COLUMN duration;
+DROP INDEX team.organization_location_plan_duration_index;
+ALTER TABLE team.organization_location ADD CONSTRAINT organization_location_organization_id_location_id_plan_id_key UNIQUE (organization_id, location_id, plan_id, from_date);
 
 
