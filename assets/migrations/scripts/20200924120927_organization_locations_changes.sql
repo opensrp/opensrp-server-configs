@@ -38,8 +38,8 @@ ALTER TABLE team.organization_location ADD CONSTRAINT organization_location_excl
 -- //@UNDO
 -- SQL to undo the change goes here.
 ALTER TABLE team.organization_location DROP CONSTRAINT organization_location_exclusion_key ;
-ALTER TABLE team.organization_location DROP COLUMN duration;
 DROP INDEX team.organization_location_plan_duration_index;
+ALTER TABLE team.organization_location DROP COLUMN duration;
 ALTER TABLE team.organization_location ADD CONSTRAINT organization_location_organization_id_location_id_plan_id_key UNIQUE (organization_id, location_id, plan_id, from_date);
 
 
