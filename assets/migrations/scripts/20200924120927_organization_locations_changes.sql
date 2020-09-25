@@ -19,8 +19,10 @@
 
 DELETE FROM team.organization_location WHERE  to_date < from_date;
 ALTER TABLE team.organization_location DROP CONSTRAINT organization_location_organization_id_location_id_plan_id_key ;
-ALTER TABLE team.organization_location ADD column duration daterange;
+ALTER TABLE team.organization_location ADD COLUMN duration daterange;
 UPDATE team.organization_location  SET duration=daterange(from_date,to_date);
+ALTER TABLE team.organization_location ALTER COLUMN  from_date SET NOT NULL;
+ALTER TABLE team.organization_location ALTER COLUMN  duration SET NOT NULL;
 CREATE INDEX organization_location_plan_duration_index ON team.organization_location(organization_id, location_id, plan_id, duration);
 
 CREATE EXTENSION IF NOT EXISTS btree_gist SCHEMA team ;
