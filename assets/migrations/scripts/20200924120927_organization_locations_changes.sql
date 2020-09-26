@@ -16,6 +16,7 @@
 
 -- // organization_locations_changes
 -- Migration SQL that makes the change goes here.
+SET client_min_messages TO WARNING;
 
 DELETE FROM team.organization_location WHERE  to_date < from_date;
 ALTER TABLE team.organization_location DROP CONSTRAINT organization_location_organization_id_location_id_plan_id_key ;
