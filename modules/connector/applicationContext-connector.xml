@@ -39,11 +39,6 @@
     	<context:component-scan base-package="org.opensrp.connector.repository"/>
     	<context:component-scan base-package="org.opensrp.connector.dhis2"/>
     </beans>
-     
-     <beans profile="dhis2-sync">
-     	<context:component-scan base-package="org.opensrp.connector.repository"/>
-    	<context:component-scan base-package="org.opensrp.connector.dhis2"/>
-    </beans>
 
 	<beans profile="rapidpro">
 		<context:component-scan base-package="org.opensrp.connector.repository"/>
