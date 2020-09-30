@@ -17,14 +17,14 @@
 -- // add_columns_created_at_and_updated_at_to_structure_metadata
 -- Migration SQL that makes the change goes here.
 -- ALTER TABLE
-ALTER TABLE core.structure_metadata ADD COLUMN IF NOT EXISTS created_at timestamp DEFAULT NOW();
-ALTER TABLE core.structure_metadata ADD COLUMN IF NOT EXISTS updated_at timestamp DEFAULT NOW();
+ALTER TABLE core.structure_metadata ADD COLUMN IF NOT EXISTS date_created timestamp DEFAULT NOW();
+ALTER TABLE core.structure_metadata ADD COLUMN IF NOT EXISTS date_edited timestamp DEFAULT NOW();
 
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-ALTER TABLE core.structure_metadata DROP COLUMN created_at;
-ALTER TABLE core.structure_metadata DROP COLUMN updated_at;
+ALTER TABLE core.structure_metadata DROP COLUMN date_created;
+ALTER TABLE core.structure_metadata DROP COLUMN date_edited;
 
 
 

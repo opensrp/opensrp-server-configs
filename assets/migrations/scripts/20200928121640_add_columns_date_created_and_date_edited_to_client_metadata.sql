@@ -16,13 +16,13 @@
 
 -- // add_columns_created_at_and_updated_at_to_location_metadata
 -- Migration SQL that makes the change goes here.
-ALTER TABLE core.plan ADD COLUMN IF NOT EXISTS created_at timestamp DEFAULT NOW();
-ALTER TABLE core.plan ADD COLUMN IF NOT EXISTS updated_at timestamp DEFAULT NOW();
+ALTER TABLE core.client_metadata ADD COLUMN IF NOT EXISTS date_created timestamp DEFAULT NOW();
+ALTER TABLE core.client_metadata ADD COLUMN IF NOT EXISTS date_edited timestamp DEFAULT NOW();
 
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-ALTER TABLE core.plan DROP COLUMN created_at;
-ALTER TABLE core.plan DROP COLUMN updated_at;
+ALTER TABLE core.client_metadata DROP COLUMN date_created;
+ALTER TABLE core.client_metadata DROP COLUMN date_edited;
 
 
