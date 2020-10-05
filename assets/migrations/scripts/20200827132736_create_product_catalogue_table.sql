@@ -4,7 +4,7 @@
 CREATE TABLE core.product_catalogue
 (
     unique_id bigserial NOT NULL,
-    product_name character varying NOT NULL,
+    product_name character varying UNIQUE NOT NULL,
     json jsonb NOT NULL,
     server_version bigint,
     PRIMARY KEY (unique_id)
