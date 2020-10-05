@@ -1,0 +1,1191 @@
+{
+	"info": {
+		"_postman_id": "950c9ae4-42cb-4c83-809e-3c810b149353",
+		"name": "OpenSRP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/security/authenticate",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"security",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Events Sync By Provider",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/event/sync?providerId=ptclinician1&serverVersion=0&limit=250",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"sync"
+					],
+					"query": [
+						{
+							"key": "providerId",
+							"value": "ptclinician1"
+						},
+						{
+							"key": "serverVersion",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "250"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Events Sync By Team",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/event/sync?team=PTClinic1&serverVersion=0&limit=250",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"sync"
+					],
+					"query": [
+						{
+							"key": "team",
+							"value": "PTClinic1"
+						},
+						{
+							"key": "serverVersion",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "250"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Event Sync By Location",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/event/sync?locationId=b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5&serverVersion=0&limit=250",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"sync"
+					],
+					"query": [
+						{
+							"key": "locationId",
+							"value": "b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5"
+						},
+						{
+							"key": "serverVersion",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "250"
+						}
+					]
+				},
+				"description": "Sync data by Location for Team PTClinic1"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Unique ID source",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"identifier\": \"1\",\n    \"identifierValidatorAlgorithm\": \"LUHN_CHECK_DIGIT_ALGORITHM\",\n    \"baseCharacterSet\": \"0123456789\",\n    \"minLength\": 8,\n    \"maxLength\": 10,\n    \"prefix\": \"\",\n    \"regexFormat\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/identifier-source",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"identifier-source"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch All Unique ID sources",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/identifier-source",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"identifier-source"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Unique ID sources by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/identifier-source/1",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"identifier-source",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unique ID request",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/uniqueids/get?source=2&numberToGenerate=5",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"uniqueids",
+						"get"
+					],
+					"query": [
+						{
+							"key": "source",
+							"value": "2"
+						},
+						{
+							"key": "numberToGenerate",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Client II",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/search/search?lastName=Bashir",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"search",
+						"search"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Bashir"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Client By Path",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/search/path?first_name=a&last_name=am",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"search",
+						"path"
+					],
+					"query": [
+						{
+							"key": "first_name",
+							"value": "a"
+						},
+						{
+							"key": "last_name",
+							"value": "am"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Client By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/opensrp/rest/client/1000001V",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"client",
+						"1000001V"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Client By Gender",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/client/search?gender=Male",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"client",
+						"search"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "Male"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sync View Configurations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/viewconfiguration/sync?serverVersion=0",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"viewconfiguration",
+						"sync"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "Male",
+							"disabled": true
+						},
+						{
+							"key": "serverVersion",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sync Serverside Settings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/settings/sync?serverVersion=0",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"settings",
+						"sync"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "Male",
+							"disabled": true
+						},
+						{
+							"key": "serverVersion",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Client By Birthdate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/client/search?birthdate=2017-12-16:2019-12-19",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"client",
+						"search"
+					],
+					"query": [
+						{
+							"key": "birthdate",
+							"value": "2017-12-16:2019-12-19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Client By Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/client/search?name=Adam",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"client",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Adam"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/user?page_size=10&start_index=0",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"user"
+					],
+					"query": [
+						{
+							"key": "page_size",
+							"value": "10"
+						},
+						{
+							"key": "start_index",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Events (Admin only)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/opensrp/rest/event/getAll?serverVersion=0&limit=10",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"getAll"
+					],
+					"query": [
+						{
+							"key": "serverVersion",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Stock",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/opensrp/rest/stockresource/getall",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"stockresource",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Stock By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/stockresource/xxxx",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"stockresource",
+						"xxxx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Event By Team",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/event/search?team=PTClinic1",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"search"
+					],
+					"query": [
+						{
+							"key": "team",
+							"value": "PTClinic1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Event By Team ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/opensrp/rest/event/search?teamId=567a6dbf-90c1-4a52-a19a-ff1e02072341",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"search"
+					],
+					"query": [
+						{
+							"key": "teamId",
+							"value": "567a6dbf-90c1-4a52-a19a-ff1e02072341"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Event By Location ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/opensrp/rest/event/search?locationId=b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"search"
+					],
+					"query": [
+						{
+							"key": "locationId",
+							"value": "b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Event By Provider ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/event/search?providerId=ptclinician1",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"search"
+					],
+					"query": [
+						{
+							"key": "providerId",
+							"value": "ptclinician1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Event By Entity Type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/opensrp/rest/event/search?entityType=mother",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"search"
+					],
+					"query": [
+						{
+							"key": "entityType",
+							"value": "mother"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Event Ids by Event Type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/opensrp/rest/event/findIdsByEventType?eventType=Birth Registration",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"findIdsByEventType"
+					],
+					"query": [
+						{
+							"key": "eventType",
+							"value": "Birth Registration"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Event By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/event/0448029-e005-4dd6-8a94-68e0bfd12876",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"0448029-e005-4dd6-8a94-68e0bfd12876"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Provider Actions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/actions?anmIdentifier={{username}}&timeStamp=1553817603433",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"actions"
+					],
+					"query": [
+						{
+							"key": "anmIdentifier",
+							"value": "{{username}}"
+						},
+						{
+							"key": "timeStamp",
+							"value": "1553817603433"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Event Client",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"clients\": [\n    {\n      \"firstName\": \"Postman\",\n      \"lastName\": \"Pentest\",\n      \"birthdateApprox\": false,\n      \"deathdateApprox\": false,\n      \"gender\": \"female\",\n      \"baseEntityId\": \"test-c632-41b6-b855-eda8db7d79e6\",\n      \"identifiers\": {\n        \"M_ZEIR_ID\": \"1001202L_mother\"\n      },\n      \"addresses\": [\n        {\n          \"addressType\": \"usual_residence\",\n          \"addressFields\": {\n            \"address2\": \"Nouakchott\",\n            \"address3\": \"b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5\"\n          }\n        }\n      ],\n      \"attributes\": {},\n      \"dateCreated\": \"2019-12-12T16:32:55.557Z\",\n      \"serverVersion\": 1576168375509,\n      \"type\": \"Client\",\n      \"id\": \"test-d5d4-452d-9662-8881d92995d9\",\n      \"revision\": \"v1\"\n    }\n  ],\n  \"no_of_events\": 1,\n  \"events\": [\n    {\n      \"identifiers\": {},\n      \"baseEntityId\": \"test-c632-41b6-b855-eda8db7d79e6\",\n      \"locationId\": \"b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5\",\n      \"eventDate\": \"2019-12-09T00:00:00.000Z\",\n      \"eventType\": \"Birth Registration\",\n      \"formSubmissionId\": \"c88c9557-7d60-4eb3-b857-10968e552a9e\",\n      \"providerId\": \"ptclinician1\",\n      \"duration\": 0,\n      \"obs\": [\n        {\n          \"fieldType\": \"formsubmissionField\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"isConsented\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"true\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"isConsented\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"3.6\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"Birth_Weight\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"Birth_Tetanus_Protection\",\n          \"humanReadableValues\": [\n            \"Yes\"\n          ]\n        },\n        {\n          \"fieldType\": \"formsubmissionField\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"Home_Facility\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"Home_Facility\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"69854785\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"Mother_Guardian_Phone_Number\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"formsubmissionField\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"last_interacted_with\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"1575923858647\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"last_interacted_with\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"start\",\n          \"fieldCode\": \"163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"2019-12-09 15:36:28\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"start\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"end\",\n          \"fieldCode\": \"163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"2019-12-09 15:37:38\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"end\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"deviceid\",\n          \"fieldCode\": \"163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"89fb8b070bbd5ce6\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"deviceid\",\n          \"humanReadableValues\": []\n        }\n      ],\n      \"entityType\": \"child\",\n      \"version\": 1575923858656,\n      \"teamId\": \"567a6dbf-90c1-4a52-a19a-ff1e02072341\",\n      \"team\": \"PTClinic1\",\n      \"dateCreated\": \"2019-12-09T20:40:07.033Z\",\n      \"serverVersion\": 1575924007025,\n      \"clientApplicationVersion\": 11,\n      \"clientDatabaseVersion\": 11,\n      \"type\": \"Event\",\n      \"id\": \"test-e005-4dd6-8a94-68e0bfd12876\",\n      \"revision\": \"v1\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/event/add/",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"add",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Event Client",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"clients\": [\n    {\n      \"firstName\": \"Postman\",\n      \"lastName\": \"Pentest\",\n      \"birthdateApprox\": false,\n      \"deathdateApprox\": false,\n      \"gender\": \"female\",\n      \"baseEntityId\": \"test-c632-41b6-b855-eda8db7d79e6\",\n      \"identifiers\": {\n        \"M_ZEIR_ID\": \"1001202L_mother\"\n      },\n      \"addresses\": [\n        {\n          \"addressType\": \"usual_residence\",\n          \"addressFields\": {\n            \"address2\": \"Nouakchott\",\n            \"address3\": \"b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5\"\n          }\n        }\n      ],\n      \"attributes\": {},\n      \"dateCreated\": \"2019-12-12T16:32:55.557Z\",\n      \"serverVersion\": 1576168375509,\n      \"type\": \"Client\",\n      \"id\": \"test-d5d4-452d-9662-8881d92995d9\",\n      \"revision\": \"v1\"\n    }\n  ],\n  \"no_of_events\": 1,\n  \"events\": [\n    {\n      \"identifiers\": {},\n      \"baseEntityId\": \"test-c632-41b6-b855-eda8db7d79e6\",\n      \"locationId\": \"b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5\",\n      \"eventDate\": \"2019-12-09T00:00:00.000Z\",\n      \"eventType\": \"Birth Registration\",\n      \"formSubmissionId\": \"c88c9557-7d60-4eb3-b857-10968e552a9e\",\n      \"providerId\": \"ptclinician1\",\n      \"duration\": 0,\n      \"obs\": [\n        {\n          \"fieldType\": \"formsubmissionField\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"isConsented\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"true\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"isConsented\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"3.6\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"Birth_Weight\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"Birth_Tetanus_Protection\",\n          \"humanReadableValues\": [\n            \"Yes\"\n          ]\n        },\n        {\n          \"fieldType\": \"formsubmissionField\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"Home_Facility\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"Home_Facility\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"69854785\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"Mother_Guardian_Phone_Number\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"formsubmissionField\",\n          \"fieldDataType\": \"text\",\n          \"fieldCode\": \"last_interacted_with\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"1575923858647\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"last_interacted_with\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"start\",\n          \"fieldCode\": \"163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"2019-12-09 15:36:28\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"start\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"end\",\n          \"fieldCode\": \"163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"2019-12-09 15:37:38\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"end\",\n          \"humanReadableValues\": []\n        },\n        {\n          \"fieldType\": \"concept\",\n          \"fieldDataType\": \"deviceid\",\n          \"fieldCode\": \"163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n          \"parentCode\": \"\",\n          \"values\": [\n            \"89fb8b070bbd5ce6\"\n          ],\n          \"set\": [],\n          \"formSubmissionField\": \"deviceid\",\n          \"humanReadableValues\": []\n        }\n      ],\n      \"entityType\": \"child\",\n      \"version\": 1575923858656,\n      \"teamId\": \"567a6dbf-90c1-4a52-a19a-ff1e02072341\",\n      \"team\": \"PTClinic1\",\n      \"dateCreated\": \"2019-12-09T20:40:07.033Z\",\n      \"serverVersion\": 1575924007025,\n      \"clientApplicationVersion\": 11,\n      \"clientDatabaseVersion\": 11,\n      \"type\": \"Event\",\n      \"id\": \"test-e005-4dd6-8a94-68e0bfd12876\",\n      \"revision\": \"v1\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/event/add/",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"event",
+						"add",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Client",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Pentest\",\n  \"lastName\": \"PostmanAdd\",\n  \"birthdate\":\"2019-12-09T00:00:00.000Z\",\n  \"birthdateApprox\": false,\n  \"deathdateApprox\": false,\n  \"gender\": \"female\",\n  \"baseEntityId\": \"test-c632-41b6-b855-eda8db7d79e0\",\n  \"identifiers\": {\n    \"M_ZEIR_ID\": \"1001202L_mother\"\n  },\n  \"addresses\": [\n    {\n      \"addressType\": \"usual_residence\",\n      \"addressFields\": {\n        \"address2\": \"Nouakchott\",\n        \"address3\": \"b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5\"\n      }\n    }\n  ],\n  \"attributes\": {},\n  \"dateCreated\": \"2019-12-12T16:32:55.557Z\",\n  \"serverVersion\": 1576168375509,\n  \"type\": \"Client\",\n  \"id\": \"test-d5d4-452d-9662-8881d92995d0\",\n  \"revision\": \"v1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{base_url}}/opensrp/rest/client/add/",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"client",
+						"add",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Client",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Pentest\",\n  \"lastName\": \"PostmanUpdate\",\n  \"birthdate\":\"2019-12-09T00:00:00.000Z\",\n  \"birthdateApprox\": false,\n  \"deathdateApprox\": false,\n  \"gender\": \"female\",\n  \"baseEntityId\": \"test-c632-41b6-b855-eda8db7d79e0\",\n  \"identifiers\": {\n    \"M_ZEIR_ID\": \"1001202L_mother\"\n  },\n  \"addresses\": [\n    {\n      \"addressType\": \"usual_residence\",\n      \"addressFields\": {\n        \"address2\": \"Nouakchott\",\n        \"address3\": \"b1b8c8dd-55fe-4ad3-aa73-740ae3114cd5\"\n      }\n    }\n  ],\n  \"attributes\": {},\n  \"dateCreated\": \"2019-12-12T16:32:55.557Z\",\n  \"serverVersion\": 1576168375509,\n  \"type\": \"Client\",\n  \"id\": \"test-d5d4-452d-9662-8881d92995d0\",\n  \"revision\": \"v1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{base_url}}/opensrp/rest/client/add/",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"client",
+						"add",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate Provider By Credentials",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/provider/authenticate?u={{username}}&p={{password}}",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"provider",
+						"authenticate"
+					],
+					"query": [
+						{
+							"key": "u",
+							"value": "{{username}}"
+						},
+						{
+							"key": "p",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate Provider By Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/opensrp/rest/provider/authenticate?id=02691840-e4a4-4781-94b8-9fe12e1d09d0",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"provider",
+						"authenticate"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "02691840-e4a4-4781-94b8-9fe12e1d09d0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "A Testing Endpoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Print QR Codes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/uniqueids/print/?batchSize=5",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"uniqueids",
+						"print",
+						""
+					],
+					"query": [
+						{
+							"key": "batchSize",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Practitioner",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n  \"identifier\": \"99000451-e481-48d6-862c-6d71ac3400ba\",\n\n  \"active\": true,\n\n  \"name\": \"Carolyn Footitt\",\n\n  \"userId\": \"99000451-e481-48d6-862c-6d71ac3400ba\",\n\n  \"username\": \"carolyn\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/practitioner",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"practitioner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Practitioner Roles",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"identifier\": \"99000451-e481-48d6-862c-6d71ac3400ba\",\n  \"active\": true,\n  \"organization\": \"abf1be43-32da-4848-9b50-630fb89ec0ef\",\n  \"practitioner\": \"99000451-e481-48d6-862c-6d71ac3400ba\",\n  \"code\": {\n    \"text\": \"Health Worker\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/practitionerRole",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"practitionerRole"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch All Practitioners",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/practitioner",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"practitioner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch All Practitioner Roles",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/opensrp/rest/practitionerRole",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"opensrp",
+						"rest",
+						"practitionerRole"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "31a96fbe-4954-450d-bd42-05571a3f7d89",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2ebbbd41-7f15-4cf2-91cb-3d68f7605b99",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "75e4f30d-38eb-43cc-9891-32a54e4a1c91",
+			"key": "base_url",
+			"value": "xxxxx.smartregister.org"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
