@@ -110,7 +110,7 @@
 			<columnOverride column="duration" typeHandler="org.opensrp.repository.postgres.handler.DateRangeTypeHandler"/>
 		</table>
 
-		<!-- 
+		<!--
 		<table schema="team" tableName="practitioner_role" />
 		
 		<table schema="core" tableName="location_tag" /> 
@@ -123,9 +123,15 @@
 			<columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.ManifestTypeHandler"/>
 		</table>
 		 -->
-		<!-- <table schema="core" tableName="settings">
-			<columnOverride column="json"
-							typeHandler="org.opensrp.repository.postgres.handler.SettingTypeHandler" />
+<!--		<table schema="core" tableName="settings">-->
+<!--			<columnOverride column="json"-->
+<!--							typeHandler="org.opensrp.repository.postgres.handler.SettingTypeHandler" />-->
+<!--		</table>-->
+
+<!--		<table schema="core" tableName="settings_metadata" typeHandler="org.opensrp.repository.postgres.handler.SettingMetadataTypeHandler" />-->
+<!--		<table schema="core" tableName="identifier_source" />-->
+		<table schema="core" tableName="product_catalogue">
+			<columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.ProductCatalogueTypeHandler"/>
 		</table>
 
 		<table schema="core" tableName="settings_metadata" typeHandler="org.opensrp.repository.postgres.handler.SettingMetadataTypeHandler" />
