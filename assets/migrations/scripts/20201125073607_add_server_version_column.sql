@@ -25,6 +25,17 @@ ALTER TABLE core.report ADD COLUMN server_version bigint;
 ALTER TABLE core.settings ADD COLUMN server_version bigint;
 ALTER TABLE core.view_configuration ADD COLUMN server_version bigint;
 
+--populate column with data
+UPDATE core.event SET server_version= (json->>'serverVersion')::bigint;
+UPDATE core.client SET server_version= (json->>'serverVersion')::bigint;
+UPDATE core.location SET server_version= (json->>'serverVersion')::bigint;
+UPDATE core.structure SET server_version= (json->>'serverVersion')::bigint;
+UPDATE core.plan SET server_version= (json->>'serverVersion')::bigint;
+UPDATE core.task SET server_version= (json->>'serverVersion')::bigint;
+UPDATE core.report SET server_version= (json->>'serverVersion')::bigint;
+UPDATE core.settings SET server_version= (json->>'serverVersion')::bigint;
+UPDATE core.view_configuration SET server_version= (json->>'serverVersion')::bigint;
+
 
 -- //@UNDOnt
 -- SQL to undo the change goes here.
