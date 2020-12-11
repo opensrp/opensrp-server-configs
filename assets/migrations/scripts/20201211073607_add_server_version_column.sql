@@ -22,6 +22,7 @@ ALTER TABLE core.location ADD COLUMN server_version bigint;
 ALTER TABLE core.structure ADD COLUMN server_version bigint;
 ALTER TABLE core.task ADD COLUMN server_version bigint;
 ALTER TABLE core.report ADD COLUMN server_version bigint;
+ALTER TABLE core.stock ADD COLUMN server_version bigint;
 ALTER TABLE core.settings ADD COLUMN server_version bigint;
 ALTER TABLE core.view_configuration ADD COLUMN server_version bigint;
 
@@ -33,6 +34,7 @@ UPDATE core.structure SET server_version= (json->>'serverVersion')::bigint;
 UPDATE core.plan SET server_version= (json->>'serverVersion')::bigint;
 UPDATE core.task SET server_version= (json->>'serverVersion')::bigint;
 UPDATE core.report SET server_version= (json->>'serverVersion')::bigint;
+UPDATE core.stock SET server_version= (json->>'serverVersion')::bigint;
 UPDATE core.settings SET server_version= (json->>'serverVersion')::bigint;
 UPDATE core.view_configuration SET server_version= (json->>'serverVersion')::bigint;
 
@@ -46,5 +48,6 @@ ALTER TABLE core.location DROP COLUMN server_version;
 ALTER TABLE core.structure DROP COLUMN server_version;
 ALTER TABLE core.task DROP COLUMN server_version;
 ALTER TABLE core.report DROP COLUMN server_version;
+ALTER TABLE core.stock DROP COLUMN server_version;
 ALTER TABLE core.settings DROP COLUMN server_version;
 ALTER TABLE core.view_configuration DROP COLUMN server_version;
