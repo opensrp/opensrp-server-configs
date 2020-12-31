@@ -1,7 +1,7 @@
 -- // add column geometry in location and structure table
 -- Migration SQL that makes the change goes here.
 
-create EXTENSION postgis;
+create EXTENSION postgis if not exists ;
 ALTER TABLE core.structure ADD COLUMN geometry geometry;
 ALTER TABLE core.location ADD COLUMN geometry geometry;
 
@@ -10,6 +10,6 @@ ALTER TABLE core.location ADD COLUMN geometry geometry;
 
 ALTER TABLE core.structure DROP COLUMN geometry;
 ALTER TABLE core.location DROP COLUMN geometry;
-DROP EXTENSION postgis;
+DROP EXTENSION postgis if exists ;
 
 
