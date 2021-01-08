@@ -37,6 +37,7 @@ UPDATE core.report SET server_version= (json->>'serverVersion')::bigint;
 UPDATE core.stock SET server_version= (json->>'serverVersion')::bigint;
 UPDATE core.settings SET server_version= (json->>'serverVersion')::bigint;
 UPDATE core.view_configuration SET server_version= (json->>'serverVersion')::bigint;
+UPDATE core.product_catalogue SET server_version= (json->>'serverVersion')::bigint;
 
 
 -- //@UNDOnt
