@@ -14,39 +14,58 @@
 		<sqlMapGenerator targetPackage="org.opensrp.repository.postgres.mapper.xml"
 			targetProject="opensrp-server-core" />
 		<javaClientGenerator targetPackage="org.opensrp.repository.postgres.mapper"
-			targetProject="opensrp-server-core" type="XMLMAPPER" />
-
-		<!-- <table schema="core" tableName="client">
-
-		 <table schema="core" tableName="client">
-
+				targetProject="opensrp-server-core" type="XMLMAPPER" />
+	
+	
+		<table schema="core" tableName="client">
+	
 			<columnOverride column="json"
 				typeHandler="org.opensrp.repository.postgres.handler.ClientTypeHandler" />
 		</table>
 		<table schema="core" tableName="event">
 			<columnOverride column="json"
 				typeHandler="org.opensrp.repository.postgres.handler.EventTypeHandler" />
-		</table> 
-
-		<table schema="core" tableName="action">
+		</table>
+	
+	
+		<table schema="core" tableName="report">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.ReportTypeHandler" />
+		</table>
+		<table schema="core" tableName="stock">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.StockTypeHandler" />
+		</table>
+	
+		<table schema="core" tableName="view_configuration">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.ViewConfigurationTypeHandler" />
+		</table>
+	
+		<table schema="core" tableName="task">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.TaskTypeHandler" />
+		</table>
+	
+		<table schema="core" tableName="structure">
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.LocationTypeHandler" />
+		</table>
+	
+		<table schema="core" tableName="settings">
+	
+			<columnOverride column="json"
+				typeHandler="org.opensrp.repository.postgres.handler.SettingTypeHandler" />
+		</table>
+		
+		
+		<!-- 	<table schema="core" tableName="action">
 
 			<columnOverride column="json"
 				typeHandler="org.opensrp.repository.postgres.handler.ActionTypeHandler" />
 		</table>
 		
 			<table schema="core" tableName="alert">
-			<columnOverride column="json"
-				typeHandler="org.opensrp.repository.postgres.handler.AlertTypeHandler" />		
-		</table>
-		<table schema="core" tableName="report">
-			<columnOverride column="json"
-				typeHandler="org.opensrp.repository.postgres.handler.ReportTypeHandler" />		
-		</table>
-		<table schema="core" tableName="stock">
-			<columnOverride column="json"
-				typeHandler="org.opensrp.repository.postgres.handler.StockTypeHandler" />		
-		</table>
-		<table schema="core" tableName="alert">
 			<columnOverride column="json"
 				typeHandler="org.opensrp.repository.postgres.handler.AlertTypeHandler" />		
 		</table>
@@ -60,13 +79,9 @@
 		<table schema="core" tableName="multi_media" />
 		<table schema="error" tableName="error_trace" /> 
 
-		<table schema="core" tableName="view_configuration">
-			<columnOverride column="json"
-				typeHandler="org.opensrp.repository.postgres.handler.ViewConfigurationTypeHandler" />		
-		</table>
-		<table schema="core" tableName="view_configuration_metadata" /> -->
 		
-	<!-- 	
+		<table schema="core" tableName="view_configuration_metadata" /> 
+	
 		<table schema="core" tableName="campaign">
 			<columnOverride column="json"
 				typeHandler="org.opensrp.repository.postgres.handler.CampaignTypeHandler" />		
@@ -105,12 +120,12 @@
 		
 		<table schema="team" tableName="practitioner" />
 		
-		-->
+
 		<table schema="team" tableName="organization_location" >
 			<columnOverride column="duration" typeHandler="org.opensrp.repository.postgres.handler.DateRangeTypeHandler"/>
 		</table>
 
-		<!--
+
 		<table schema="team" tableName="practitioner_role" />
 		
 		<table schema="core" tableName="location_tag" /> 
@@ -129,7 +144,7 @@
 <!--		</table>-->
 
 <!--		<table schema="core" tableName="settings_metadata" typeHandler="org.opensrp.repository.postgres.handler.SettingMetadataTypeHandler" />-->
-<!--		<table schema="core" tableName="identifier_source" />-->
+<!--		<table schema="core" tableName="identifier_source" />
 		<table schema="core" tableName="product_catalogue">
 			<columnOverride column="json" typeHandler="org.opensrp.repository.postgres.handler.ProductCatalogueTypeHandler"/>
 		</table>
