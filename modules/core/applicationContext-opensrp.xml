@@ -30,6 +30,9 @@
 			fixed-delay="${schedule.event.add.serverVersion.interval}" />
 		<!--<task:scheduled ref="openmrsAtomfeedListener" method="syncAtomfeeds" -->
 		<!--fixed-delay="900000" /> -->
+		<task:scheduled ref="reportResource"
+						method="generateMonthlyDistrictReports"
+						cron="${schedule.report.generate.cron}" />
 	</task:scheduled-tasks>
 
 	<beans profile="openmrs-sync">
