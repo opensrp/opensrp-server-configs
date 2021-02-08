@@ -19,9 +19,8 @@
 
 UPDATE core.plan p
 SET server_version = (p.json->>'serverVersion')::BIGINT
-WHERE p.json->>'serverVersion' <> p.server_version::varchar(255);
+WHERE (p.json->>'serverVersion')::BIGINT <> p.server_version;
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-
 
