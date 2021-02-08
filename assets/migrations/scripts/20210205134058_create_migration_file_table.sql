@@ -29,7 +29,6 @@ CREATE TABLE core.client_migration_file
     version INTEGER NOT NULL,
     manifest_id INTEGER,
     file_contents text,
-    json jsonb NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )
