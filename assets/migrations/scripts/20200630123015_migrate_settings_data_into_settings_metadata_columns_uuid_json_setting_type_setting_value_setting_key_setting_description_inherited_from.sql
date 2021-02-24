@@ -23,13 +23,11 @@ SET client_min_messages TO WARNING;
 -- generate the uuid_generate_v4() function
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" schema core;
 
-SET search_path to core;
-
 -- remove document_id uniqueness constraint
-ALTER TABLE IF EXISTS settings_metadata
-    DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
+ALTER TABLE IF EXISTS core.settings_metadata
+    DROP CONSTRAINT IF EXISTS core.settings_metadata_document_id_key;
 
-CREATE OR REPLACE FUNCTION migrate_settings_json()
+CREATE OR REPLACE FUNCTION core.migrate_settings_json()
     RETURNS VOID
 AS
 $$
@@ -58,14 +56,14 @@ DECLARE
 
 BEGIN
     -- create backup tables
-    CREATE TABLE IF NOT EXISTS settings_backup as TABLE settings;
-    CREATE TABLE IF NOT EXISTS settings_metadata_backup as TABLE settings_metadata;
+    CREATE TABLE IF NOT EXISTS core.settings_backup as TABLE core.settings;
+    CREATE TABLE IF NOT EXISTS core.settings_metadata_backup as TABLE core.settings_metadata;
 
     -- delete entries from v1 data
-    DELETE FROM settings_metadata sm WHERE sm.uuid IS NULL;
+    DELETE FROM core.settings_metadata sm WHERE sm.uuid IS NULL;
 
     -- migrate data
-    FOR setting_id, setting_configurations IN (SELECT id, json from settings)
+    FOR setting_id, setting_configurations IN (SELECT id, json from core.settings)
         LOOP
             FOR setting IN SELECT * FROM jsonb_array_elements((setting_configurations ->> 'settings')::jsonb)
                 LOOP
@@ -95,10 +93,10 @@ BEGIN
                     setting_json := jsonb_pretty(setting);
 
                     IF uuid IS NULL THEN
-                        uuid := uuid_generate_v4();
+                        uuid := core.uuid_generate_v4();
                     END IF;
 
-                    INSERT INTO settings_metadata (document_id, settings_id, identifier, team, team_id, server_version,
+                    INSERT INTO core.settings_metadata (document_id, settings_id, identifier, team, team_id, server_version,
                                                    provider_id,
                                                    location_id, setting_key, setting_value, setting_description,
                                                    setting_label, setting_type, uuid, inherited_from, json)
@@ -111,38 +109,36 @@ BEGIN
         END LOOP;
 
     -- delete settings block since migration is complete
-    UPDATE settings SET json=json - 'settings';
+    UPDATE core.settings SET json=json - 'settings';
 END;
 
 $$ LANGUAGE 'plpgsql';
 
-SELECT migrate_settings_json();
+SELECT core.migrate_settings_json();
 
 -- //@UNDO
 -- SQL to undo the change goes here.
-SET search_path to core;
+DROP TABLE IF EXISTS core.settings CASCADE;
+DROP TABLE IF EXISTS core.settings_metadata;
 
-DROP TABLE IF EXISTS settings CASCADE;
-DROP TABLE IF EXISTS settings_metadata;
-
-CREATE TABLE IF NOT EXISTS settings AS TABLE settings_backup;
-ALTER TABLE IF EXISTS settings
+CREATE TABLE IF NOT EXISTS core.settings AS TABLE core.settings_backup;
+ALTER TABLE IF EXISTS core.settings
     ADD CONSTRAINT settings_pk PRIMARY KEY (id);
-CREATE TABLE IF NOT EXISTS settings_metadata AS TABLE settings_metadata_backup;
-ALTER TABLE IF EXISTS settings_metadata
+CREATE TABLE IF NOT EXISTS core.settings_metadata AS TABLE settings_metadata_backup;
+ALTER TABLE IF EXISTS core.settings_metadata
     ADD CONSTRAINT settings_metadata_pk PRIMARY KEY (id);
-ALTER TABLE IF EXISTS settings_metadata
-    ADD CONSTRAINT settings_fk FOREIGN KEY (settings_id) REFERENCES settings (id) ON DELETE CASCADE;
+ALTER TABLE IF EXISTS core.settings_metadata
+    ADD CONSTRAINT settings_fk FOREIGN KEY (settings_id) REFERENCES core.settings (id) ON DELETE CASCADE;
 
-CREATE SEQUENCE IF NOT EXISTS settings_id_seq;
-ALTER TABLE IF EXISTS settings
-    ALTER COLUMN id SET DEFAULT nextval('settings_id_seq');
-ALTER SEQUENCE IF EXISTS settings_id_seq OWNED BY settings.id;
+CREATE SEQUENCE IF NOT EXISTS core.settings_id_seq;
+ALTER TABLE IF EXISTS core.settings
+    ALTER COLUMN id SET DEFAULT nextval('core.settings_id_seq');
+ALTER SEQUENCE IF EXISTS core.settings_id_seq OWNED BY core.settings.id;
 
-CREATE SEQUENCE IF NOT EXISTS settings_metadata_id_seq;
-ALTER TABLE IF EXISTS settings_metadata
-    ALTER COLUMN id SET DEFAULT nextval('settings_metadata_id_seq');
-ALTER SEQUENCE IF EXISTS settings_metadata_id_seq OWNED BY settings_metadata.id;
+CREATE SEQUENCE IF NOT EXISTS core.settings_metadata_id_seq;
+ALTER TABLE IF EXISTS core.settings_metadata
+    ALTER COLUMN id SET DEFAULT nextval('core.settings_metadata_id_seq');
+ALTER SEQUENCE IF EXISTS core.settings_metadata_id_seq OWNED BY core.settings_metadata.id;
 
-DROP TABLE IF EXISTS settings_metadata_backup;
-DROP TABLE IF EXISTS settings_backup CASCADE;
+DROP TABLE IF EXISTS core.settings_metadata_backup;
+DROP TABLE IF EXISTS core.settings_backup CASCADE;
