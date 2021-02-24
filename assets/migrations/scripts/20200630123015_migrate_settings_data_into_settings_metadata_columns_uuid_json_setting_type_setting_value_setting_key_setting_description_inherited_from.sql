@@ -25,7 +25,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" schema core;
 
 -- remove document_id uniqueness constraint
 ALTER TABLE IF EXISTS core.settings_metadata
-    DROP CONSTRAINT IF EXISTS core.settings_metadata_document_id_key;
+    DROP CONSTRAINT IF EXISTS settings_metadata_document_id_key;
 
 CREATE OR REPLACE FUNCTION core.migrate_settings_json()
     RETURNS VOID
