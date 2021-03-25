@@ -17,6 +17,9 @@
             <PatternLayout pattern="%d{ddMMyyyy HH:mm:ss,SSS} %m%n"/>
         </File>
         <Sentry name="Sentry"/>
+        <Sentry name="SentryVerbose"
+                minimumBreadcrumbLevel="DEBUG"
+                minimumEventLevel="WARN" />
     </Appenders>
     <Loggers>
         <logger name="org.motechproject" level="info"/>
@@ -40,6 +43,10 @@
             <!--<appender-ref ref="WebMonitorLog"/>-->
             <appender-ref ref="Console"/>
         </logger>
+
+        <logger name="org.keycloak.adapters.RequestAuthenticator" level="warn">
+             <AppenderRef ref="SentryVerbose" />
+         </logger>
 
         <Root level="info">
             <AppenderRef ref="Console"/>
