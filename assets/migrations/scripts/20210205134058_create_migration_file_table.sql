@@ -24,7 +24,7 @@ CREATE TABLE core.client_migration_file
     identifier character varying NOT NULL,
     filename character varying NOT NULL,
     on_object_storage BOOLEAN default false,
-    object_storage_path character varying NOT NULL,
+    object_storage_path character varying,
     jurisdiction character varying,
     version INTEGER NOT NULL,
     manifest_id INTEGER,
