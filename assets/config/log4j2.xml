@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration packages="org.apache.logging.log4j.core,io.sentry.log4j2">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[REPORT] %d{ddMMyyyy HH:mm:ss,SSS} %-5p [%t] [%c{1}] %m%n"/>
+        </Console>
+        <File name="ReportingRollingLog" fileName="opensrpReporting.log">
+            <PatternLayout pattern="%d{ddMMyyyy HH:mm:ss,SSS} %-5p [%t] [%c{1}] %m%n"/>
+        </File>
+        <File name="ReportingMonitorLog" fileName="opensrpReportingMonitoring.log">
+            <PatternLayout pattern="%d{ddMMyyyy HH:mm:ss,SSS} %m%n"/>
+        </File>
+        <File name="WebRollingLog" fileName="opensrpWeb.log">
+            <PatternLayout pattern="%d{ddMMyyyy HH:mm:ss,SSS} %-5p [%t] [%c{1}] %m%n"/>
+        </File>
+        <File name="WebMonitorLog" fileName="opensrpWebMonitoring.log">
+            <PatternLayout pattern="%d{ddMMyyyy HH:mm:ss,SSS} %m%n"/>
+        </File>
+        <Sentry name="Sentry"/>
+        <Sentry name="SentryVerbose"
+                minimumBreadcrumbLevel="DEBUG"
+                minimumEventLevel="WARN" />
+    </Appenders>
+    <Loggers>
+        <logger name="org.motechproject" level="info"/>
+
+        <logger name="org.quartz" level="warn"/>
+
+        <logger name="metrics" level="warn"/>
+
+        <logger name="org.springframework" level="info"/>
+
+        <logger name="org.ei" level="info"/>
+
+        <logger name="org.opensrp" level="info"/>
+
+        <logger name="DRISHTI_REPORT_MONITOR">
+            <!--<appender-ref ref="ReportingMonitorLog"/>-->
+            <appender-ref ref="Console"/>
+        </logger>
+
+        <logger name="DRISHTI_WEB_MONITOR">
+            <!--<appender-ref ref="WebMonitorLog"/>-->
+            <appender-ref ref="Console"/>
+        </logger>
+
+        <logger name="org.keycloak.adapters.RequestAuthenticator" level="warn">
+             <AppenderRef ref="SentryVerbose" />
+         </logger>
+
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Sentry"/>
+        </Root>
+    </Loggers>
+</Configuration>
