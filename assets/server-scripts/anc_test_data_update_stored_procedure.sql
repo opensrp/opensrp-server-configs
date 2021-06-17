@@ -5,6 +5,7 @@ Declare
     counter                     varchar := CAST(countParam AS text) || 'Month'; -- number of months that needs to be added in all the dates objects.
     eventRecord                 core.event%ROWTYPE;
     clientRecord                core.client%ROWTYPE;
+    iso8601dateTimeFormat       text    := 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"';
     obs                         jsonb;
     photo                       jsonb;
     address                     jsonb;
@@ -62,8 +63,8 @@ BEGIN
             --  Update Event json ->> dateCreated
             IF ((eventRecord.json ->> 'dateCreated') is not null) and (eventRecord.json ->> 'dateCreated' != '')
             THEN
-                eventDateCreated := ((eventRecord.json ->> 'dateCreated'):: timestamp) + CAST(counter as interval);
-                eventDateCreatedString := eventDateCreated::text;
+                eventDateCreated := ((eventRecord.json ->> 'dateCreated'):: timestamptz) + CAST(counter as interval);
+                eventDateCreatedString := to_char(eventDateCreated, iso8601dateTimeFormat);
 
                 update core.event
                 set json = jsonb_set(json, '{dateCreated}', concat('"', eventDateCreatedString, '"')::jsonb)
@@ -75,8 +76,9 @@ BEGIN
             IF ((eventRecord.json ->> 'dateEdited') is not null) and (eventRecord.json ->> 'dateEdited' != '')
             THEN
                 --  RAISE NOTICE 'Updating dateEdited in Event json : %', eventRecord.id;
-                eventDateEdited := ((eventRecord.json ->> 'dateEdited'):: timestamp) + CAST(counter as interval);
-                eventDateEditedString := eventDateEdited::text;
+                eventDateEdited := ((eventRecord.json ->> 'dateEdited'):: timestamptz) + CAST(counter as interval);
+                eventDateEditedString := to_char(eventDateEdited, iso8601dateTimeFormat);
+
                 update core.event
                 set json = jsonb_set(json, '{dateEdited}', concat('"', eventDateEditedString, '"')::jsonb)
                 where id = eventRecord.id;
@@ -86,8 +88,8 @@ BEGIN
             --  Update Event json ->> dateVoided
             IF ((eventRecord.json ->> 'dateVoided') is not null) and (eventRecord.json ->> 'dateVoided' != '')
             THEN
-                eventDateVoided := ((eventRecord.json ->> 'dateVoided'):: timestamp) + CAST(counter as interval);
-                eventDateVoidedString := eventDateVoided::text;
+                eventDateVoided := ((eventRecord.json ->> 'dateVoided'):: timestamptz) + CAST(counter as interval);
+                eventDateVoidedString := to_char(eventDateVoided, iso8601dateTimeFormat);
 
                 update core.event
                 set json = jsonb_set(json, '{dateVoided}', concat('"', eventDateVoidedString, '"')::jsonb)
@@ -99,8 +101,8 @@ BEGIN
             --  Update Event json ->> eventDate
             IF ((eventRecord.json ->> 'eventDate') is not null) and (eventRecord.json ->> 'eventDate' != '')
             THEN
-                eventDate := ((eventRecord.json ->> 'eventDate'):: timestamp) + CAST(counter as interval);
-                eventDateString := eventDate::text;
+                eventDate := ((eventRecord.json ->> 'eventDate'):: timestamptz) + CAST(counter as interval);
+                eventDateString := to_char(eventDate, iso8601dateTimeFormat);
 
                 update core.event
                 set json = jsonb_set(json, '{eventDate}', concat('"', eventDateString, '"')::jsonb)
@@ -252,12 +254,11 @@ BEGIN
             --
 
             --  Update event json ->> details
-            i := 0;
             IF ((eventRecord.json ->> 'details') is not null)
             THEN
                 update core.event
-                set json = jsonb_set(eventRecord.json, '{details}'::text[],
-                                     (select update_event_details((eventRecord.json -> 'details'), counter::text))::jsonb)
+                set json = jsonb_set(json, '{details}'::text[],
+                                     (select update_event_details((json -> 'details'), counter::text))::jsonb)
                 where id = eventRecord.id;
             END IF;
             --
@@ -345,8 +346,8 @@ BEGIN
             --  Update client json ->> dateCreated
             IF ((clientRecord.json ->> 'dateCreated') is not null) and (clientRecord.json ->> 'dateCreated' != '')
             THEN
-                clientDateCreated := ((clientRecord.json ->> 'dateCreated'):: timestamp) + CAST(counter as interval);
-                clientDateCreatedString := clientDateCreated::text;
+                clientDateCreated := ((clientRecord.json ->> 'dateCreated'):: timestamptz) + CAST(counter as interval);
+                clientDateCreatedString := to_char(clientDateCreated, iso8601dateTimeFormat);
 
                 update core.client
                 set json = jsonb_set(json, '{dateCreated}', concat('"', clientDateCreatedString, '"')::jsonb)
@@ -359,8 +360,8 @@ BEGIN
             IF ((clientRecord.json ->> 'dateEdited') is not null) and (clientRecord.json ->> 'dateEdited' != '')
             THEN
                 --RAISE NOTICE 'Updating dateEdited in Client json : %', clientRecord.id;
-                clientDateEdited := ((clientRecord.json ->> 'dateEdited'):: timestamp) + CAST(counter as interval);
-                clientDateEditedString := clientDateEdited::text;
+                clientDateEdited := ((clientRecord.json ->> 'dateEdited'):: timestamptz) + CAST(counter as interval);
+                clientDateEditedString := to_char(clientDateEdited, iso8601dateTimeFormat);
                 update core.client
                 set json = jsonb_set(json, '{dateEdited}', concat('"', clientDateEditedString, '"')::jsonb)
                 where id = clientRecord.id;
@@ -485,30 +486,13 @@ BEGIN
             --
 
             --  Update client json ->> attributes
-            i := 0;
             IF ((clientRecord.json ->> 'attributes') is not null)
             THEN
-                FOR attributeRecord IN SELECT * FROM jsonb_each_text(clientRecord.json -> 'attributes')
-                    LOOP
-                        RAISE NOTICE 'key %', attributeRecord.key;
-                        RAISE NOTICE 'value %', attributeRecord.value;
-
-                        IF ((attributeRecord.value is not null) and (select is_date(attributeRecord.value ::varchar)))
-                        THEN
-                            RAISE NOTICE 'attribute record value is% and client id is %', attributeRecord.value,clientRecord.id;
-                            attributeValue := (attributeRecord.value:: timestamp) + CAST(counter as interval);
-                            attributeValueString := attributeValue::text;
-
-                            RAISE NOTICE 'Updating path {attributes, % } with the value of % and client id is %' , attributeRecord.key,attributeValueString,clientRecord.id;
-                            update core.client
-                            set json = jsonb_set(json, concat('{attributes,', attributeRecord.key, '}')::text[],
-                                                 concat('"', attributeValueString, '"')::jsonb)
-                            where id = clientRecord.id;
-
-                        END IF;
-
-                        i := i + 1;
-                    END LOOP;
+                update core.client
+                set json = jsonb_set(json, '{attributes}'::text[],
+                                     (select update_dates_on_key_value_pair((json -> 'attributes'),
+                                                                            counter::text))::jsonb)
+                where id = clientRecord.id;
             END IF;
             --
 
@@ -557,22 +541,20 @@ $$
 
 create or replace function is_date(dateString varchar) returns boolean as
 $$
+declare
+    _dateString varchar := trim(both '"' from dateString);
 begin
     RAISE NOTICE 'date is % ', dateString;
-    RAISE NOTICE 'date is % in text', dateString::text;
-    RAISE NOTICE 'checking if condition of date, AFTER TRIMMING %' , trim(both '"' from dateString);
-    IF (trim(both '"' from dateString) ~ '[a-z]')
-    THEN
-        RAISE NOTICE 'Date string from a-z';
-        return false;
-    END IF;
-    IF (dateString is not null) and (trim(both '"' from dateString) ~ '[0-9]{2}-[0-9]{2}-[0-9]{4}')
+    RAISE NOTICE 'checking if condition of date, AFTER TRIMMING %' , _dateString;
+    IF (dateString is not null)
+        and (_dateString ~ '^\[?[0-9]{2}-[0-9]{2}-[0-9]{4}[TZtz0-9+.:\s]*\]?$'
+            or _dateString ~ '^\[?[0-9]{4}-[0-9]{2}-[0-9]{2}[TZtz0-9+.:\s]*\]?$')
     THEN
         RAISE NOTICE 'inside if block of date';
+        perform dateString::date;
         return true;
     END IF;
-    perform dateString::date;
-    return true;
+    return false;
 exception
     when others then
         RAISE NOTICE 'inside exception block';
@@ -598,7 +580,7 @@ exception
 end;
 $$ language plpgsql;
 
-create or replace function update_event_details(keyValuePair jsonb, intervalOffset text) returns text as
+create or replace function update_event_details(keyValuePair jsonb, counter text) returns text as
 $$
 DECLARE
     _key                text;
@@ -626,7 +608,7 @@ BEGIN
                                     THEN
                                         newDateString :=
                                                 (select to_char(((trim(both '[]' from currentDateString):: timestamp) +
-                                                                 CAST(intervalOffset as interval))::timestamp,
+                                                                 CAST(counter as interval))::timestamp,
                                                                 'YYYY-MM-DD'));
                                     ELSE
                                         newDateString :=
@@ -634,7 +616,7 @@ BEGIN
                                                                                                 trim(both '[]' from currentDateString),
                                                                                                 'DD-MM-YYYY')::timestamp),
                                                                                 'YYYY-MM-DD')::timestamp +
-                                                                        CAST(intervalOffset as interval))::date,
+                                                                        CAST(counter as interval))::date,
                                                                 'DD-MM-YYYY'));
 
                                     END IF;
@@ -650,7 +632,7 @@ BEGIN
                             ELSE
                                 _value = jsonb_set(_value::jsonb, concat('{', record.key, '}')::text[],
                                                    to_jsonb(
-                                                           (select update_dates_on_key_value_pair(record.value::jsonb, intervalOffset))));
+                                                           (select update_dates_on_key_value_pair(record.value::jsonb, counter))));
                             END IF;
                         END LOOP;
                     keyValuePair = jsonb_set(keyValuePair, concat('{', _key, '}')::text[],
@@ -662,7 +644,7 @@ BEGIN
 END ;
 $$ language plpgsql;
 
-create or replace function update_dates_on_key_value_pair(keyValuePair jsonb, intervalOffset text) returns text as
+create or replace function update_dates_on_key_value_pair(keyValuePair jsonb, counter text) returns text as
 $$
 declare
     currentDateString   text;
@@ -685,7 +667,7 @@ begin
                         newDateString :=
                                 (select to_char(
                                                 ((trim(both '[]' from currentDateString):: timestamp) +
-                                                 CAST(intervalOffset as interval))::timestamp,
+                                                 CAST(counter as interval))::timestamp,
                                                 'YYYY-MM-DD'));
                     ELSE
                         newDateString :=
@@ -693,7 +675,7 @@ begin
                                                                                 trim(both '[]' from currentDateString),
                                                                                 'DD-MM-YYYY')::timestamp),
                                                                 'YYYY-MM-DD')::timestamp +
-                                                        CAST(intervalOffset as interval))::date,
+                                                        CAST(counter as interval))::date,
                                                 'DD-MM-YYYY'));
 
                     END IF;
