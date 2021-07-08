@@ -150,7 +150,9 @@
 		</table>
 
 		<table schema="core" tableName="settings_metadata" typeHandler="org.opensrp.repository.postgres.handler.SettingMetadataTypeHandler" />
-		<table schema="core" tableName="identifier_source" /> -->
+		<table schema="core" tableName="identifier_source" />
+		<table schema="core" tableName="sms_api_processing_status" />
+		-->
 	</context>
 		
 </generatorConfiguration>
