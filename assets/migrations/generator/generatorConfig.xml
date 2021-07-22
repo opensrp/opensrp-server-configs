@@ -150,7 +150,8 @@
 		</table>
 
 		<table schema="core" tableName="settings_metadata" typeHandler="org.opensrp.repository.postgres.handler.SettingMetadataTypeHandler" />
-		<table schema="core" tableName="identifier_source" /> -->
+		<table schema="core" tableName="identifier_source" />
+		<table schema="core" tableName="rapidpro_state" />  -->
 	</context>
 		
 </generatorConfiguration>

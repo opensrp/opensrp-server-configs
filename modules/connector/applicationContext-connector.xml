@@ -34,16 +34,11 @@
 	        <constructor-arg ref="couchDbInstance"/>
 	    </bean>
     </beans>
-    
+
     <beans profile="dhis2-sync">
     	<context:component-scan base-package="org.opensrp.connector.repository"/>
     	<context:component-scan base-package="org.opensrp.connector.dhis2"/>
     </beans>
-
-	<beans profile="rapidpro">
-		<context:component-scan base-package="org.opensrp.connector.repository"/>
-		<context:component-scan base-package="org.opensrp.connector.rapidpro" />
-	</beans>
 
 	<beans profile="openlmis-stock">
 		<context:component-scan base-package="org.smartregister.stock.openlmis" />
