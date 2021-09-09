@@ -16,7 +16,9 @@
         <File name="WebMonitorLog" fileName="opensrpWebMonitoring.log">
             <PatternLayout pattern="%d{ddMMyyyy HH:mm:ss,SSS} %m%n"/>
         </File>
-        <Sentry name="Sentry"/>
+        <Sentry name="Sentry"
+                minimumEventLevel="${bundle:opensrp:sentry.minimumEventLevel}"
+                minimumBreadcrumbLevel="${bundle:opensrp:sentry.minimumBreadcrumbLevel}" />
         <Sentry name="SentryVerbose"
                 minimumBreadcrumbLevel="DEBUG"
                 minimumEventLevel="WARN" />
