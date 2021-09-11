@@ -20,5 +20,5 @@ WITH (
 -- //@UNDO
 -- SQL to undo the change goes here.
 
-DROP TABLE core.template;
+DROP TABLE IF EXISTS core.template;
 
