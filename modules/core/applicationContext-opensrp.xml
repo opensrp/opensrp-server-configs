@@ -55,4 +55,12 @@
 		<import resource="persistence_postgres.xml" />
 	</beans>
 
+	<beans profile="plan-generation">
+		<task:scheduled-tasks scheduler="applicationScheduler">
+			<task:scheduled ref="planResource"
+							method="generateCaseTriggeredPlans"
+							cron="${schedule.plan.generate.cron}" />
+		</task:scheduled-tasks>
+	</beans>
+
 </beans>
