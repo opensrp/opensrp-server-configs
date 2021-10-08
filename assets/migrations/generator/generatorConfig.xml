@@ -152,7 +152,8 @@
 		<table schema="core" tableName="settings_metadata" typeHandler="org.opensrp.repository.postgres.handler.SettingMetadataTypeHandler" />
 		<table schema="core" tableName="identifier_source" />
 		<table schema="core" tableName="rapidpro_state" />
-		<table schema="core" tableName="template" />
+		<table schema="core" tableName="template">
+		<columnOverride column="template" typeHandler="org.opensrp.repository.postgres.handler.TemplateTypeHandler"/>
 		<table schema="core" tableName="plan_processing_status" />-->
 	</context>
 		
