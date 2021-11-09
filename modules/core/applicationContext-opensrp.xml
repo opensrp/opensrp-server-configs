@@ -59,7 +59,7 @@
 		<task:scheduled-tasks scheduler="applicationScheduler">
 			<task:scheduled ref="planResource"
 							method="generateCaseTriggeredPlans"
-							cron="${schedule.plan.generate.cron}" />
+							cron="${schedule.plan.generate.cron:0 0/5 * * * *}" />
 		</task:scheduled-tasks>
 	</beans>
 
