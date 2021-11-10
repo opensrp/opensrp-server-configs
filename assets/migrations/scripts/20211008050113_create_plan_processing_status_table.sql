@@ -5,7 +5,7 @@ CREATE TABLE core.plan_processing_status
 (
 	id bigserial NOT NULL,
     plan_id bigint REFERENCES core.plan(id),
-    event_id bigint NOT NULL  REFERENCES core.plan(id),
+    event_id bigint NOT NULL  REFERENCES core.event(id),
     template_id bigint REFERENCES core.template(id),
     status int NOT NULL default 0,
     date_created timestamp DEFAULT NOW(),
