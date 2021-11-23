@@ -63,4 +63,11 @@
 		</task:scheduled-tasks>
 	</beans>
 
+	<beans>
+		<task:scheduled-tasks scheduler="applicationScheduler">
+			<task:scheduled ref="healthCheckMetricUpdater"
+							method="updateHealthStatusMetrics"
+							cron="#{opensrp['metrics.health_check_updater.cron'] ?: '0 0/1 * * * *'}" />
+		</task:scheduled-tasks>
+	</beans>
 </beans>
