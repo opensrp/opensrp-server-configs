@@ -118,6 +118,8 @@ $$ LANGUAGE 'plpgsql';
 
 SELECT migrate_settings_json();
 
+SET search_path to public;
+
 -- //@UNDO
 -- SQL to undo the change goes here.
 SET search_path to core;
@@ -146,3 +148,5 @@ ALTER SEQUENCE IF EXISTS settings_metadata_id_seq OWNED BY settings_metadata.id;
 
 DROP TABLE IF EXISTS settings_metadata_backup;
 DROP TABLE IF EXISTS settings_backup CASCADE;
+
+SET search_path to public;
