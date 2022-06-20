@@ -76,7 +76,7 @@
 		<task:scheduled-tasks scheduler="applicationScheduler">
 			<task:scheduled ref="reportResource"
 							method="generateMonthlyDistrictReports"
-							cron="${opensrp['schedule.report.generate.cron'] ?: '0 0 2 5 * *'}" />
+							cron="#{opensrp['schedule.report.generate.cron'] ?: '0 0 2 5 * *'}" />
 		</task:scheduled-tasks>
 	</beans>
 
