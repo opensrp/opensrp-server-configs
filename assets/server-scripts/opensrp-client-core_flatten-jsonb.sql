@@ -99,6 +99,10 @@ begin
             ORDER BY e.id
             $ex$, table_name, regular_columns, cols, json_column, event_type);
     ELSE
+        execute format ($ex$
+            SELECT REPLACE(%1$L, ', %2$s->>''obs'' "obs"', '') -- deselect 'obs' col
+        $ex$, cols, json_column)
+        INTO cols;
         execute format($ex$
             drop view if exists core."%1$s_%5$s_view";
             create view core."%1$s_%5$s_view" as 

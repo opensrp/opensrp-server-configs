@@ -77,5 +77,5 @@ SELECT
 	   'client',
 	   'id, date_deleted, server_version',
 	   'json',
-       'attributes', 'identifiers'
+       'identifiers', 'attributes'
 	);
