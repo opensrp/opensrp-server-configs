@@ -18,6 +18,10 @@ begin
         $ex$)
     into cols;
     execute format ($ex$
+        SELECT REPLACE(%1$L, ', e."json"->>''details'' "details"', '') -- deselect 'details' col
+    $ex$, cols)
+    INTO cols;
+    execute format ($ex$
         select string_agg(format('jsonb_pc."prev_cntcts"->>%%1$L "prev_cntcts.%%1$s"', key), ', ')
         from (
             select distinct key
