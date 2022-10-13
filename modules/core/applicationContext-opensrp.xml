@@ -23,7 +23,7 @@
 	<task:scheduler id="applicationScheduler" pool-size="10" />
 	<task:scheduled-tasks
 		scheduler="applicationScheduler">
-		<!-- <task:scheduled ref="formSubmissionListener" method="parseForms" 
+		<!-- <task:scheduled ref="formSubmissionListener" method="parseForms"
 			fixed-delay="180000" /> -->
 		<task:scheduled ref="eventsListener"
 			method="processEvent"
@@ -43,14 +43,14 @@
 				fixed-delay="${schedule.openmrs.validate.interval}" />
 		</task:scheduled-tasks>
 	</beans>
-	
+
 	<beans profile="dhis2-sync">
 		<task:scheduled-tasks
 			scheduler="applicationScheduler">
 			<task:scheduled ref="DHIS2DatasetPush"
 				method="pushToDHIS2" fixed-delay="${schedule.dhis2.sync.interval}" />
 			</task:scheduled-tasks>
-	</beans>	
+	</beans>
 
 	<beans profile="postgres">
 		<import resource="persistence_postgres.xml" />
@@ -71,4 +71,13 @@
 							cron="#{opensrp['metrics.health_check_updater.cron'] ?: '0 0/1 * * * *'}" />
 		</task:scheduled-tasks>
 	</beans>
+
+	<beans profile="district-report">
+		<task:scheduled-tasks scheduler="applicationScheduler">
+			<task:scheduled ref="reportResource"
+							method="generateMonthlyDistrictReports"
+							cron="#{opensrp['schedule.report.generate.cron'] ?: '0 0 2 5 * *'}" />
+		</task:scheduled-tasks>
+	</beans>
+
 </beans>
