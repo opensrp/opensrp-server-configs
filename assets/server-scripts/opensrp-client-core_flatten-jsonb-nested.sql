@@ -38,40 +38,15 @@ begin
     END LOOP;
     SELECT concat_ws(', ', cols, nested_cols)
     INTO final_selected_cols;
-    IF (table_name = 'event') THEN
-        execute format($ex$
-            drop view if exists core.%1$s_detailed_view;
-            create view core.%1$s_detailed_view as 
-            select %2$s, %3$s from core.%1$s e
-            ORDER BY e.%4$s ->> 'eventType', e.%4$s ->> 'providerId', e.id
-            $ex$, table_name, regular_columns, final_selected_cols, json_column);
-    ELSIF (table_name = 'client') THEN
-        execute format($ex$
-            drop view if exists core.%1$s_detailed_view;
-            create view core.%1$s_detailed_view as 
-            select %2$s, %3$s from core.%1$s c
-            ORDER BY c.%4$s ->> 'firstName', c.id
-            $ex$, table_name, regular_columns, final_selected_cols, json_column);
-    ELSE
-        execute format($ex$
-            drop view if exists core.%1$s_detailed_view;
-            create view core.%1$s_detailed_view as 
-            select %2$s, %3$s from core.%1$s a
-            ORDER BY a.id
-            $ex$, table_name, regular_columns, final_selected_cols);
-    END IF;
+    execute format($ex$
+        drop view if exists core.%1$s_detailed_view;
+        create view core.%1$s_detailed_view as 
+        select %2$s, %3$s from core.%1$s a
+        $ex$, table_name, regular_columns, final_selected_cols);
     return final_selected_cols;
 end $$;
 
--- Sample usage, without nested json object(s)
-SELECT
-	core.create_jsonb_nested_flat_view(
-	   'client',
-	   'id, date_deleted, server_version',
-	   'json'
-	);
-
--- Sample usage, with nested json object(s)
+-- Sample usage, with nested json object(s) `identifiers` and `attributes`
 SELECT
 	core.create_jsonb_nested_flat_view(
 	   'client',

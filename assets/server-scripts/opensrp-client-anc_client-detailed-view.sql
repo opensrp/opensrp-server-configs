@@ -42,7 +42,6 @@ begin
         select c.id, date_deleted, server_version,
             %1$s
         from core."client" c
-        ORDER BY c."json" ->> 'firstName', c."json" -> 'identifiers' ->> 'ANC_ID', c.id
         $ex$, final_selected_cols);
     return final_selected_cols;
 end $$;

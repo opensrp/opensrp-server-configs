@@ -141,7 +141,6 @@ begin
             jsonb_to_record(('{"prev_cntcts":' || details."previous_contacts" || '}')::jsonb
             ) AS jsonb_pc("prev_cntcts" jsonb)
         WHERE e."json" ->> 'eventType' = 'Contact Visit'
-        ORDER BY e.id
         $ex$, cols, previous_contacts_cols, attention_flag_facts_cols, open_test_tasks_flat_array_cols);
     return cols || previous_contacts_cols || attention_flag_facts_cols || open_test_tasks_flat_array_cols;
 end $$;

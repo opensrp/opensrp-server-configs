@@ -25,28 +25,11 @@ begin
             ) s;
         $ex$, table_name, json_column)
     into cols;
-    IF (table_name = 'event') THEN
-        execute format($ex$
-            drop view if exists core.%1$s_view;
-            create view core.%1$s_view as 
-            select %2$s, %3$s from core.%1$s e
-            ORDER BY e.%4$s ->> 'eventType', e.%4$s ->> 'providerId', e.id
-            $ex$, table_name, regular_columns, cols, json_column);
-    ELSIF (table_name = 'client') THEN
-        execute format($ex$
-            drop view if exists core.%1$s_view;
-            create view core.%1$s_view as 
-            select %2$s, %3$s from core.%1$s c
-            ORDER BY c.%4$s ->> 'firstName', c.id
-            $ex$, table_name, regular_columns, cols, json_column);
-    ELSE
-        execute format($ex$
-            drop view if exists core.%1$s_view;
-            create view core.%1$s_view as 
-            select %2$s, %3$s from core.%1$s a
-            ORDER BY a.id
-            $ex$, table_name, regular_columns, cols);
-    END IF;
+    execute format($ex$
+        drop view if exists core.%1$s_view;
+        create view core.%1$s_view as 
+        select %2$s, %3$s from core.%1$s a
+        $ex$, table_name, regular_columns, cols);
     return cols;
 end $$;
 
@@ -96,7 +79,6 @@ begin
             create view core."%1$s_%5$s_view" as 
             select %2$s, %3$s from core.%1$s e
             WHERE e.%4$s ->> 'eventType' = %5$L
-            ORDER BY e.id
             $ex$, table_name, regular_columns, cols, json_column, event_type);
     ELSE
         execute format ($ex$
@@ -117,7 +99,6 @@ begin
                 WHERE
                     e2.%4$s ->> 'eventType' = %5$L) e_sub ON e_sub.id = e.id
             WHERE e.%4$s ->> 'eventType' = %5$L
-            ORDER BY e.id
             $ex$, table_name, regular_columns, cols, json_column, event_type, flat_obs_cols);
     END IF;
     return cols || flat_obs_cols;
