@@ -4,15 +4,13 @@
 CREATE TABLE core.sample
 (
     id bigserial NOT NULL,
-    json jsonb NOT NULL,
+    total integer,
     date_deleted timestamp,
     PRIMARY KEY (id)
 )
 WITH (
     OIDS = FALSE
 ) TABLESPACE ${core_tablespace};
-
-CREATE INDEX sample_date_deleted_index ON core.sample (date_deleted);
 
 -- //@UNDO
 -- SQL to undo the change goes here.
