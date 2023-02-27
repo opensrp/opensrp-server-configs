@@ -10,11 +10,11 @@
 		<jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/opensrp"
 						driverClass="org.postgresql.Driver" password="admin" userId="opensrp_admin" />
 		<javaModelGenerator targetPackage="org.opensrp.domain.postgres"
-							targetProject="opensrp-server-core" />
+							targetProject="/Users/vend/IdeaProjects/opensrp-server-core" />
 		<sqlMapGenerator targetPackage="org.opensrp.repository.postgres.mapper.xml"
-						 targetProject="opensrp-server-core" />
+						 targetProject="/Users/vend/IdeaProjects/opensrp-server-core" />
 		<javaClientGenerator targetPackage="org.opensrp.repository.postgres.mapper"
-							 targetProject="opensrp-server-core" type="XMLMAPPER" />
+							 targetProject="/Users/vend/IdeaProjects/opensrp-server-core" type="XMLMAPPER" />
 
 		<!--
             <table schema="core" tableName="client">
