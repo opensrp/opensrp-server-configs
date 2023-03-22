@@ -26,6 +26,8 @@
     <Loggers>
         <logger name="org.motechproject" level="info"/>
 
+        <logger name="org.opensrp.repository.postgres.mapper.custom" level="trace"/>
+
         <logger name="org.quartz" level="warn"/>
 
         <logger name="metrics" level="warn"/>
